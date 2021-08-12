@@ -1,25 +1,25 @@
-##################
+###################
 # VARIABLES
-##################
+###################
 
 # src path
-SRCPATH := src/
+SRCPATH :=src/
 # release path 
-RLSPATH := release/
+RLSPATH :=release/
 # include path
-INCPATH := include/
+INCPATH :=include/
 
 # object files 
-OBJ  :=$(RLSPATH)main.o
+OBJ  	:=$(RLSPATH)main.o
 # header dependencies
-DEPS :=$(INCPATH)utl.hpp
+DEPS 	:=$(INCPATH)utl.hpp
 
 # compiler flags
-CFLAGS :=-I.
+CFLAGS 	:=-iquote.
 
-###############
+#####################
 # EXPLICIT RULES
-###############
+#####################
 
 
 run: main.exe
