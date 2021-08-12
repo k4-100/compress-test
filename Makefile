@@ -17,7 +17,7 @@ OBJ := $(RLSPATH)main.o
 run: main.exe
 	$(RLSPATH)$^
 
-main.exe : $(RLSPATH)main.o
+main.exe : $(OBJ)
 	g++ $? -o $(RLSPATH)$@
 
 clean:
