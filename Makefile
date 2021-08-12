@@ -1,7 +1,13 @@
+SRCPATH := src/
+# release path 
+RLSPATH := release/
+
+OBJ := $(RLSPATH)main.o
+
 run: main.exe
 	./$^
 
-main.exe : main.o
+main.exe : $(RLSPATH)main.o
 	g++ $? -o $@
 
 clean:
@@ -11,5 +17,6 @@ clean:
 #####################
 # IMPLICIT RULES
 #####################
-%.o : %.cpp
-	g++ -c $^
+
+$(RLSPATH)%.o : $(SRCPATH)%.cpp
+	g++ -c $^ -o $@
