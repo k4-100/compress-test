@@ -2,12 +2,20 @@
 # VARIABLES
 ##################
 
+# src path
 SRCPATH := src/
 # release path 
 RLSPATH := release/
+# include path
+INCPATH := include/
 
-OBJ := $(RLSPATH)main.o
+# object files 
+OBJ  :=$(RLSPATH)main.o
+# header dependencies
+DEPS :=$(INCPATH)utl.hpp
 
+# compiler flags
+CFLAGS :=-I.
 
 ###############
 # EXPLICIT RULES
@@ -28,5 +36,5 @@ clean:
 # IMPLICIT RULES
 #####################
 
-$(RLSPATH)%.o : $(SRCPATH)%.cpp
-	g++ -c $^ -o $@
+$(RLSPATH)%.o : $(SRCPATH)%.cpp $(DEPS)
+	g++ -c $< -o $@ $(CFLAGS)
