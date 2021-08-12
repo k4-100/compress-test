@@ -10,12 +10,12 @@ RLSPATH :=release/
 INCPATH :=include/
 
 # object files 
-OBJ  	:=$(RLSPATH)main.o
+OBJ  	:=$(RLSPATH)main.o $(RLSPATH)utl.o
 # header dependencies
 DEPS 	:=$(INCPATH)utl.hpp
 
 # compiler flags
-CFLAGS 	:=-iquote.
+CFLAGS 	:=-iquote. -Wall
 
 #####################
 # EXPLICIT RULES
