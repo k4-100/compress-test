@@ -4,6 +4,7 @@
 #include <iostream>
 #include <bitset>
 #include <fstream>
+#include <iomanip>
 
 /// stores program utilities
 namespace CMPS 

@@ -10,10 +10,8 @@ int main()
 {   
     std::cout << "compiled\n";
 
-    const size_t size = 10;
-
-    std::string str = CMPS::read_from_file( "" );
+    std::string str = CMPS::read_from_file( "./release/test.cmps" );
     // std::bitset < gibValue( 10 ) >bSet("A");
-    // std::cout<< bSet << '\n';
+    std::cout<< str << '\n';
     // return 0;
 }
