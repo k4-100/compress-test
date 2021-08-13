@@ -2,7 +2,7 @@
 
 int main()
 {   
-    const std::string PATH =  "./release/test.cmps";
+    const std::string PATH =  "./release/test.txt";
     std::cout << "compiled\n";
 
     std::string str = CMPS::read_from_file( PATH );
