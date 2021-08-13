@@ -5,8 +5,8 @@ int main()
     const std::string PATH =  "./release/test.cmps";
     std::cout << "compiled\n";
 
-    std::string str = CMPS::read_from_file( PATH );
+    // std::string str = CMPS::read_from_file( PATH );
 
-    CMPS::write_to_file( PATH, ( str + str ) );
+    // CMPS::write_to_file( PATH, ( str + str ) );
 
 }
