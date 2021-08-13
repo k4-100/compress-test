@@ -36,7 +36,11 @@ namespace CMPS
             else
             {   
                 std::cout<< "buffer: "<< buffer << '\n';
-                compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
+                if( buffer.size() > 4)
+                    compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
+                else
+                    compressedStr += buffer + ';';
+
                 if ( i == source.size() -1 )
                     compressedStr += std::string( 1,source [ i ]) + ";" ;
                 else 

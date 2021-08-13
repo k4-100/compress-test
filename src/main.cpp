@@ -11,5 +11,5 @@ int main()
     const std::string source = "aaabbc";
     const std::string comppressed = CMPS::compress( str );
     std::cout << "source: " << ": " << str.size() << '\n';
-    std::cout << "comppressed: " << ": " << comppressed.size() << '\n';
+    std::cout << comppressed << ": " << comppressed.size() << '\n';
 }
