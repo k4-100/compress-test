@@ -20,20 +20,34 @@ namespace CMPS
     }
 
     std::string compress( const std::string &source )
-    {
+    {   
+
+        /// compresses current buffer
+        /// \param buffer buffer to be compress
+        /// \param compressedStr string concatenated by compressed buffer
+        auto compressBuffer = [](const std::string &buffer, std::string &compressedStr )
+        {
+             if( buffer.size() > 4)
+                    compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
+                else
+                    compressedStr += buffer + ';';
+                
+        };
+
+
+
         std::string compressedStr = "";
         std::string buffer = { source[ 0 ] };
+
+        
+
         for( uint32_t i=1; i<source.size(); i++ )
         {
             if( source[ i ] == buffer[ buffer.length() - 1 ] )
                 buffer += source[ i ];
             else
             {
-                if( buffer.size() > 4)
-                    compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
-                else
-                    compressedStr += buffer + ';';
-                
+                compressBuffer( buffer, compressedStr );
                 // loop is at the end of iteration
                 if ( i == source.size() -1 )
                     compressedStr += std::string( 1,source [ i ]) + ";" ;
@@ -41,7 +55,10 @@ namespace CMPS
                     buffer = source[ i ];
             }
             
+            std::cout<< buffer << '\n';
         }
+
+        compressBuffer( buffer, compressedStr );
 
         return compressedStr;
     }
