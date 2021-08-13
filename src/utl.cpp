@@ -19,4 +19,25 @@ namespace CMPS
         writer.close();
     }
 
+    std::string compress( const std::string &source )
+    {   
+        std::string compressedStr = "compressed";
+        std::string buffer = { source[ 0 ] };
+        for( uint32_t i=1; i<source.size(); i++ )
+        {
+            if( source[ i ] == buffer[ i-1 ] )
+                buffer += source[ i ];
+            else
+            {   
+                std::cout<<  buffer << '\n';
+                compressedStr += std::to_string( buffer.length() ) + 'x' +  buffer[0] + ';';
+                if( i + 1 < source.size() )
+                    buffer = source[ i+1 ];
+            }
+            
+        }
+
+        return compressedStr;
+    }
+
 } // !namespace CMPS

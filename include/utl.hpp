@@ -20,10 +20,12 @@ namespace CMPS
     /// \param path path to a file
     /// \param buffer buffer to write into file 
     void write_to_file( const std::string &path, const std::string &buffer );
+
     /// compresses string 
     /// \param source source string which has to be compressed
     /// \return compressed string
     std::string compress( const std::string &source );
+    
     /// decompresses string 
     /// \param source source string which has to be decompressed
     /// \return decompressed string
