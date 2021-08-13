@@ -19,7 +19,7 @@ namespace CMPS
     /// write data from std::string buffer into a file
     /// \param path path to a file
     /// \param buffer buffer to write into file 
-    void read_to_file( const std::string &path, std::string &buffer );
+    void write_to_file( const std::string &path, const std::string &buffer );
 
 } // !namespace UTL
 
