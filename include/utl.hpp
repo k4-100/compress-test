@@ -4,11 +4,13 @@
 #include <iostream>
 #include <bitset>
 #include <fstream>
-#include <iomanip>
+
+
 
 /// stores program utilities
 namespace CMPS 
-{   
+{
+
     /// read data from file into std::string buffer
     /// \param path path to a file
     /// \return file content in form of std::string
@@ -18,6 +20,7 @@ namespace CMPS
     /// \param path path to a file
     /// \param buffer buffer to write into file 
     void read_to_file( const std::string &path, std::string &buffer );
+
 } // !namespace UTL
 
 

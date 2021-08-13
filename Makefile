@@ -1,5 +1,5 @@
 ###################
-# VARIABLES
+# MACROS
 ###################
 
 # src path
@@ -10,9 +10,12 @@ RLSPATH :=release/
 INCPATH :=include/
 
 # object files 
-OBJ  	:=$(RLSPATH)main.o $(RLSPATH)utl.o
+OBJ  	:=$(RLSPATH)utl.o $(RLSPATH)main.o 
 # header dependencies
 DEPS 	:=$(INCPATH)utl.hpp
+
+# target
+TARGET 	:=$(RLSPATH)main.exe
 
 # compiler flags
 CFLAGS 	:=-iquote. -Wall
@@ -21,12 +24,14 @@ CFLAGS 	:=-iquote. -Wall
 # EXPLICIT RULES
 #####################
 
+all : run
 
-run: main.exe
-	$(RLSPATH)$^
 
-main.exe : $(OBJ)
-	g++ $? -o $(RLSPATH)$@
+run: $(TARGET)
+	$(TARGET)
+
+$(TARGET) : $(OBJ)
+	g++ $^ -o $(TARGET) $(CFLAGS)
 
 clean:
 	rm $(RLSPATH)*.exe $(RLSPATH)*.o
