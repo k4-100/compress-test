@@ -62,7 +62,33 @@ namespace CMPS
 
 
     std::string decompress( const std::string &source )
-    {
+    { 
+        /// decompresses current buffer
+        /// \param buffer buffer to be decompressed
+        /// \param compressedStr string concatenated by decompressed buffer
+        auto decompressBuffer = []( std::string &buffer, std::string &decompressedStr )
+        {   
+            uint32_t multiplicator = 0;
+            std::string sign = "";
+            std::size_t crossPos = buffer.find( 'x' );
+
+            if( crossPos != std::string::npos )
+            {
+                multiplicator = std::stoi(  buffer.substr(0, crossPos )  );
+                sign = buffer.substr( crossPos+1, 1 );
+
+                for(uint32_t i=0; i<multiplicator; i++)
+                    decompressedStr += sign;
+            }
+            else    
+                decompressedStr += buffer;
+            buffer = "";
+
+        };
+               
+           
+
+
         std::string decompressedStr = "";
         std::string buffer = "";
 
@@ -71,14 +97,13 @@ namespace CMPS
             if(source[ i ] != ';' ) 
                 buffer += source[ i ];
             else
-            {
-                decompressedStr += buffer;
-                buffer = "";
+            {      
+                decompressBuffer( buffer, decompressedStr );
             }
         }
 
         if(decompressedStr != "")
-            decompressedStr += buffer;
+            decompressBuffer( buffer, decompressedStr );
 
         return decompressedStr;
     }
