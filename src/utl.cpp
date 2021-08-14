@@ -33,9 +33,6 @@ namespace CMPS
                     compressedStr += buffer + ';';
                 
         };
-
-
-
         std::string compressedStr = "";
         std::string buffer = { source[ 0 ] };
 
@@ -55,12 +52,35 @@ namespace CMPS
                     buffer = source[ i ];
             }
             
-            std::cout<< buffer << '\n';
+            // std::cout<< buffer << '\n';
         }
 
         compressBuffer( buffer, compressedStr );
 
         return compressedStr;
+    }
+
+
+    std::string decompress( const std::string &source )
+    {
+        std::string decompressedStr = "";
+        std::string buffer = "";
+
+        for( uint32_t i=0; i<source.size(); i++ )
+        {
+            if(source[ i ] != ';' ) 
+                buffer += source[ i ];
+            else
+            {
+                decompressedStr += buffer;
+                buffer = "";
+            }
+        }
+
+        if(decompressedStr != "")
+            decompressedStr += buffer;
+
+        return decompressedStr;
     }
 
 } // !namespace CMPS
