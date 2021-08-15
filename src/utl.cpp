@@ -1,7 +1,7 @@
 #include "include/utl.h"
 
 
-    std::string CMPS_read_from_file( const std::string &path )
+    std::string CMPS_read_from_file( const std::string path )
     {
         std::ifstream reader( path );
         std::string buffer( std::istreambuf_iterator< char > ( reader ),{} );
@@ -10,20 +10,20 @@
         return buffer;
     }
 
-    void CMPS_write_to_file( const std::string &path, const std::string &buffer )
+    void CMPS_write_to_file( const std::string path, const std::string buffer )
     {
         std::ofstream writer( path );
         writer << buffer;
         writer.close();
     }
 
-    std::string CMPS_compress( const std::string &source )
+    std::string CMPS_compress( const std::string source )
     {   
 
         /// compresses current buffer
         /// \param buffer buffer to be compress
         /// \param compressedStr string concatenated by compressed buffer
-        auto compressBuffer = [](const std::string &buffer, std::string &compressedStr )
+        auto compressBuffer = [](const std::string buffer, std::string compressedStr )
         {
              if( buffer.size() > 4)
                     compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
@@ -59,12 +59,12 @@
     }
 
 
-    std::string CMPS_decompress( const std::string &source )
+    std::string CMPS_decompress( const std::string source )
     { 
         /// decompresses current buffer
         /// \param buffer buffer to be decompressed
         /// \param compressedStr string concatenated by decompressed buffer
-        auto decompressBuffer = []( std::string &buffer, std::string &decompressedStr )
+        auto decompressBuffer = []( std::string buffer, std::string decompressedStr )
         {   
             uint32_t multiplicator = 0;
             std::string sign = "";
@@ -108,7 +108,7 @@
 
 
 
-    void CMPS_GEN_generate_test_file( const uint32_t &size )
+    void CMPS_GEN_generate_test_file( const uint32_t size )
     {   
 
     #pragma region random number generator
