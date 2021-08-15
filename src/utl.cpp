@@ -111,11 +111,43 @@ namespace CMPS
 
     namespace GEN
     {   
-        /// generate test text file to test other functions
-        /// \param size amount of line to write into a file
         void generate_test_file( const uint32_t &size )
-        {
-            std::cout<< "generate_test_file: "<< size << '\n';
+        {   
+
+        #pragma region random number generator
+            std::mt19937 generator;
+            generator.seed( std::time( 0 ) );
+            std::uniform_int_distribution<uint32_t> dice(65,77);
+        #pragma endregion // !random number generator
+
+
+        #pragma region buffer generation
+            std::string buffer = "";
+            for( uint32_t x=0; x<size;  x++)
+            {   
+                for(uint32_t y=0; y<10; y++)
+                {
+                    int currentChar = (char)dice( generator );
+                    for( uint32_t z=0; z<10; z++ )
+                    {
+                        buffer.push_back( currentChar );
+                    }
+
+                   
+                }
+                 buffer += '\n';
+            }
+        #pragma endregion  // !buffer generation 
+
+        
+
+
+        #pragma region write to a file
+            std::ofstream writer("./release/generated.txt");
+            writer << buffer;
+            writer.close();
+        #pragma endregion // !write to a file
+        
         }
 
     }

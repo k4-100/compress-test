@@ -4,8 +4,8 @@
 #include <iostream>
 #include <bitset>
 #include <fstream>
-
-
+#include <random>
+#include <ctime>
 
 /// stores program utilities
 namespace CMPS 
