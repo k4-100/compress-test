@@ -9,6 +9,8 @@ RLSPATH :=release/
 # include path
 INCPATH :=include/
 
+
+
 # object files 
 OBJ  	:=$(RLSPATH)utl.o $(RLSPATH)main.o 
 # header dependencies
@@ -19,6 +21,10 @@ TARGET 	:=$(RLSPATH)main.exe
 
 # compiler flags
 CFLAGS 	:=-iquote. -Wall
+
+# number big enough to cause compression/decompression to run for few seconds
+MIL = 1000000
+
 
 #####################
 # EXPLICIT RULES
