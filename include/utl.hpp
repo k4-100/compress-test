@@ -31,7 +31,17 @@ namespace CMPS
     /// \return decompressed string
     std::string decompress( const std::string &source );
 
-} // !namespace UTL
+
+    /// namespace for generator
+    namespace GEN
+    {   
+        /// generate test text file to test other functions
+        /// \param size amount of line to write into a file
+        void generate_test_file( const uint32_t &size );
+
+    } // !namespace GEN
+
+} // !namespace CMPS
 
 
 #endif // !UTL_HPP

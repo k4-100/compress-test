@@ -108,4 +108,16 @@ namespace CMPS
         return decompressedStr;
     }
 
+
+    namespace GEN
+    {   
+        /// generate test text file to test other functions
+        /// \param size amount of line to write into a file
+        void generate_test_file( const uint32_t &size )
+        {
+            std::cout<< "generate_test_file: "<< size << '\n';
+        }
+
+    }
+
 } // !namespace CMPS

@@ -6,6 +6,8 @@ int main( int argc, char *argv[] )
     std::cout<< "argv: "<< argv[ 0 ]<<'\n';
 
 
+    CMPS::GEN::generate_test_file( 10 );
+
     // const std::string PATH =  "./release/test.txt";
     // std::cout << "compiled\n";
 
