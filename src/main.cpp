@@ -2,15 +2,33 @@
 
 int main( int argc, char *argv[] )
 {   
+    const std::string uncompressed_path =  "./release/generated.txt";
+    const std::string compressed_path =  "./release/generated.cmps";
+
+    std::string buffer = "";
 
 
- 
-
+    // compress .txt file
+    if( argv[1][1] == 'c' )
+    {   
+        buffer = CMPS::read_from_file( uncompressed_path );
+        CMPS::write_to_file( 
+            compressed_path,  
+            CMPS::compress( buffer )
+        );
+    }
+    // decompress .cmps file
+    if( argv[1][1] == 'd' )
+    {
+        
+    }
+    // generate test .txt file 
     if( argv[1][1] == 'g' )
          CMPS::GEN::generate_test_file( atoi( argv[2] ) );
+    
 
 
-    // const std::string PATH =  "./release/test.txt";
+    
     // std::cout << "compiled\n";
 
     // std::string str = CMPS::read_from_file( PATH );
