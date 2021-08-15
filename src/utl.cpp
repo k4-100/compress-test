@@ -117,7 +117,8 @@ namespace CMPS
         #pragma region random number generator
             std::mt19937 generator;
             generator.seed( std::time( 0 ) );
-            std::uniform_int_distribution<uint32_t> dice(65,77);
+            std::uniform_int_distribution<uint32_t> charDice(65,77);
+            std::uniform_int_distribution<uint32_t> lengthDice(1,10);
         #pragma endregion // !random number generator
 
 
@@ -125,10 +126,11 @@ namespace CMPS
             std::string buffer = "";
             for( uint32_t x=0; x<size;  x++)
             {   
-                for(uint32_t y=0; y<10; y++)
+                for(uint32_t y=0; y<18; y++)
                 {
-                    int currentChar = (char)dice( generator );
-                    for( uint32_t z=0; z<10; z++ )
+                    int currentChar = (char)charDice( generator );
+                    uint32_t currentLength = lengthDice( generator );
+                    for( uint32_t z=0; z<currentLength; z++ )
                     {
                         buffer.push_back( currentChar );
                     }
@@ -140,8 +142,6 @@ namespace CMPS
         #pragma endregion  // !buffer generation 
 
         
-
-
         #pragma region write to a file
             std::ofstream writer("./release/generated.txt");
             writer << buffer;
