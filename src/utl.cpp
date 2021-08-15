@@ -1,9 +1,7 @@
-#include "include/utl.hpp"
+#include "include/utl.h"
 
-namespace CMPS
-{
 
-    std::string read_from_file( const std::string &path )
+    std::string CMPS_read_from_file( const std::string &path )
     {
         std::ifstream reader( path );
         std::string buffer( std::istreambuf_iterator< char > ( reader ),{} );
@@ -12,14 +10,14 @@ namespace CMPS
         return buffer;
     }
 
-    void write_to_file( const std::string &path, const std::string &buffer )
+    void CMPS_write_to_file( const std::string &path, const std::string &buffer )
     {
         std::ofstream writer( path );
         writer << buffer;
         writer.close();
     }
 
-    std::string compress( const std::string &source )
+    std::string CMPS_compress( const std::string &source )
     {   
 
         /// compresses current buffer
@@ -61,7 +59,7 @@ namespace CMPS
     }
 
 
-    std::string decompress( const std::string &source )
+    std::string CMPS_decompress( const std::string &source )
     { 
         /// decompresses current buffer
         /// \param buffer buffer to be decompressed
@@ -109,48 +107,45 @@ namespace CMPS
     }
 
 
-    namespace GEN
+
+    void CMPS_GEN_generate_test_file( const uint32_t &size )
     {   
-        void generate_test_file( const uint32_t &size )
+
+    #pragma region random number generator
+        std::mt19937 generator;
+        generator.seed( std::time( 0 ) );
+        std::uniform_int_distribution<uint32_t> charDice(65,77);
+        std::uniform_int_distribution<uint32_t> lengthDice(1,10);
+    #pragma endregion // !random number generator
+
+
+    #pragma region buffer generation
+        std::string buffer = "";
+        for( uint32_t x=0; x<size;  x++)
         {   
-
-        #pragma region random number generator
-            std::mt19937 generator;
-            generator.seed( std::time( 0 ) );
-            std::uniform_int_distribution<uint32_t> charDice(65,77);
-            std::uniform_int_distribution<uint32_t> lengthDice(1,10);
-        #pragma endregion // !random number generator
-
-
-        #pragma region buffer generation
-            std::string buffer = "";
-            for( uint32_t x=0; x<size;  x++)
-            {   
-                for(uint32_t y=0; y<18; y++)
+            for(uint32_t y=0; y<18; y++)
+            {
+                int currentChar = (char)charDice( generator );
+                uint32_t currentLength = lengthDice( generator );
+                for( uint32_t z=0; z<currentLength; z++ )
                 {
-                    int currentChar = (char)charDice( generator );
-                    uint32_t currentLength = lengthDice( generator );
-                    for( uint32_t z=0; z<currentLength; z++ )
-                    {
-                        buffer.push_back( currentChar );
-                    }
-
-                   
+                    buffer.push_back( currentChar );
                 }
-                if(x+1 < size)
-                    buffer += '\n';
+
+                
             }
-        #pragma endregion  // !buffer generation 
-
-        
-        #pragma region write to a file
-            std::ofstream writer("./release/generated.txt");
-            writer << buffer;
-            writer.close();
-        #pragma endregion // !write to a file
-        
+            if(x+1 < size)
+                buffer += '\n';
         }
+    #pragma endregion  // !buffer generation 
 
+    
+    #pragma region write to a file
+        std::ofstream writer("./release/generated.txt");
+        writer << buffer;
+        writer.close();
+    #pragma endregion // !write to a file
+    
     }
 
-} // !namespace CMPS
+    

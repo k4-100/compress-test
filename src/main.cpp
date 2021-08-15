@@ -1,4 +1,4 @@
-#include "include/utl.hpp"
+#include "include/utl.h"
 
 int main( int argc, char *argv[] )
 {   
@@ -12,22 +12,22 @@ int main( int argc, char *argv[] )
     // compress .txt file
     if( argv[1][1] == 'c' )
     {   
-        buffer = CMPS::read_from_file( default_path );
-        CMPS::write_to_file( 
+        buffer = CMPS_read_from_file( default_path );
+        CMPS_write_to_file( 
             compressed_path,  
-            CMPS::compress( buffer )
+            CMPS_compress( buffer )
         );
     }
     // decompress .cmps file
     if( argv[1][1] == 'd' )
     {
-        buffer = CMPS::read_from_file( compressed_path );
-        CMPS::write_to_file( 
+        buffer = CMPS_read_from_file( compressed_path );
+        CMPS_write_to_file( 
             uncompressed_path,  
-            CMPS::decompress( buffer )
+            CMPS_decompress( buffer )
         );
     }
     // generate test .txt file 
     if( argv[1][1] == 'g' )
-         CMPS::GEN::generate_test_file( atoi( argv[2] ) );
+         CMPS_GEN_generate_test_file( atoi( argv[2] ) );
 }
