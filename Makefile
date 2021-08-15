@@ -28,7 +28,7 @@ all : run
 
 
 run: $(TARGET)
-	$(TARGET) -g 10000
+	$(TARGET) -d
 $(TARGET) : $(OBJ)
 	g++ $^ -o $(TARGET) $(CFLAGS)
 

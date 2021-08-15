@@ -2,4 +2,4 @@
 *.o
 .vscode
 release/*.txt
-release/*.cmps
+release/*cmps

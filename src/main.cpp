@@ -2,7 +2,8 @@
 
 int main( int argc, char *argv[] )
 {   
-    const std::string uncompressed_path =  "./release/generated.txt";
+    const std::string default_path = "./release/generated.txt";
+    const std::string uncompressed_path =  "./release/generated.dcmps";
     const std::string compressed_path =  "./release/generated.cmps";
 
     std::string buffer = "";
@@ -11,7 +12,7 @@ int main( int argc, char *argv[] )
     // compress .txt file
     if( argv[1][1] == 'c' )
     {   
-        buffer = CMPS::read_from_file( uncompressed_path );
+        buffer = CMPS::read_from_file( default_path );
         CMPS::write_to_file( 
             compressed_path,  
             CMPS::compress( buffer )
@@ -20,29 +21,13 @@ int main( int argc, char *argv[] )
     // decompress .cmps file
     if( argv[1][1] == 'd' )
     {
-        
+        buffer = CMPS::read_from_file( compressed_path );
+        CMPS::write_to_file( 
+            uncompressed_path,  
+            CMPS::decompress( buffer )
+        );
     }
     // generate test .txt file 
     if( argv[1][1] == 'g' )
          CMPS::GEN::generate_test_file( atoi( argv[2] ) );
-    
-
-
-    
-    // std::cout << "compiled\n";
-
-    // std::string str = CMPS::read_from_file( PATH );
-
-    // // CMPS::write_to_file( PATH, ( str + str ) );
-    // // const std::string source = "aaaaaabbccccccc21421521125";
-    // const std::string comppressed = CMPS::compress( str );
-    
-
-    // std::cout << "str: " << ": " << str.size() << '\n';
-    // std::cout<< "\n#####################\n\n";
-    // std::cout << comppressed << ": " << comppressed.size() << '\n';
-    
-    // std::cout<< "\n#####################\n\n";
-    // const std::string decompressed =  CMPS::decompress( comppressed );
-    // std::cout << decompressed << ": " << decompressed.size() << '\n';
 }
