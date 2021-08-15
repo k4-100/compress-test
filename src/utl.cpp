@@ -137,7 +137,8 @@ namespace CMPS
 
                    
                 }
-                 buffer += '\n';
+                if(x+1 < size)
+                    buffer += '\n';
             }
         #pragma endregion  // !buffer generation 
 

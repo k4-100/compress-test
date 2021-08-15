@@ -2,11 +2,13 @@
 
 int main( int argc, char *argv[] )
 {   
-    std::cout<< "argc: "<< argc<<'\n';
-    std::cout<< "argv: "<< argv[ 0 ]<<'\n';
 
-    
-    CMPS::GEN::generate_test_file( 10000 );
+
+ 
+
+    if( argv[1][1] == 'g' )
+         CMPS::GEN::generate_test_file( atoi( argv[2] ) );
+
 
     // const std::string PATH =  "./release/test.txt";
     // std::cout << "compiled\n";

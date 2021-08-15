@@ -6,6 +6,7 @@
 #include <fstream>
 #include <random>
 #include <ctime>
+#include <string>
 
 /// stores program utilities
 namespace CMPS 
@@ -37,7 +38,7 @@ namespace CMPS
     {   
         /// generate test text file to test other functions
         /// \param size amount of line to write into a file
-        void generate_test_file( const uint32_t &size );
+        void generate_test_file( const uint32_t &size = 10000 );
 
     } // !namespace GEN
 
