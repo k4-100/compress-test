@@ -14,7 +14,7 @@ INCPATH :=include/
 # object files 
 OBJ  	:=$(RLSPATH)utl.o $(RLSPATH)main.o 
 # header dependencies
-DEPS 	:=$(INCPATH)utl.hpp
+DEPS 	:=$(INCPATH)utl.h
 
 # target
 TARGET 	:=$(RLSPATH)main.exe
