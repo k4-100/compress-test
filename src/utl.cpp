@@ -6,6 +6,15 @@
         std::ifstream reader( path );
         std::string buffer( std::istreambuf_iterator< char > ( reader ),{} );
         reader.close();
+    
+        // FILE *reader;
+        // char buff[200];
+        // char *buffer =  (char *)malloc( MIL * sizeof( char ) );
+        // reader = fopen( path.c_str(), "r" );
+        //     while( fgets( buff, 200, (FILE*)reader ) )
+        //         sprintf( buffer, "%s%s", buffer, buff );
+        // fclose( reader );
+
 
         return buffer;
     }
@@ -149,3 +158,5 @@
     }
 
     
+
+

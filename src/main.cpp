@@ -13,6 +13,7 @@ int main( int argc, char *argv[] )
     if( argv[1][1] == 'c' )
     {   
         buffer = CMPS_read_from_file( default_path );
+        
         CMPS_write_to_file( 
             compressed_path,  
             CMPS_compress( buffer )

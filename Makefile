@@ -34,7 +34,7 @@ all : run
 
 
 run: $(TARGET)
-	$(TARGET) -g $(MIL)
+	$(TARGET) -c 
 $(TARGET) : $(OBJ)
 	g++ $^ -o $(TARGET) $(CFLAGS)
 
