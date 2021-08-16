@@ -3,20 +3,20 @@
 
     std::string CMPS_read_from_file( const std::string path )
     {
-        std::ifstream reader( path );
-        std::string buffer( std::istreambuf_iterator< char > ( reader ),{} );
-        reader.close();
+        // std::ifstream reader( path );
+        // std::string buffer( std::istreambuf_iterator< char > ( reader ),{} );
+        // reader.close();
     
-        // FILE *reader;
-        // char buff[200];
-        // char *buffer =  (char *)malloc( MIL * sizeof( char ) );
-        // reader = fopen( path.c_str(), "r" );
-        //     while( fgets( buff, 200, (FILE*)reader ) )
-        //         sprintf( buffer, "%s%s", buffer, buff );
-        // fclose( reader );
+        FILE *reader;
+        char buff[200];
+        char *buffer =  (char *)malloc( MIL * sizeof( char ) );
+        reader = fopen( path.c_str(), "r" );
+            while( fgets( buff, 200, (FILE*)reader ) )
+                sprintf( buffer, "%s%s", buffer, buff );
+        fclose( reader );
 
 
-        return buffer;
+        return std::string(buffer);
     }
 
     void CMPS_write_to_file( const std::string path, const std::string buffer )
@@ -26,7 +26,7 @@
         writer.close();
     }
 
-    std::string CMPS_compress( const std::string source )
+    std::string CMPS_compress( const std::string *source )
     {   
 
         /// compresses current buffer
@@ -45,16 +45,17 @@
 
         
 
-        for( uint32_t i=1; i<source.size(); i++ )
-        {
+        for( uint32_t i=1; i<source->size(); i++ )
+        {   
+            // const char sourceChar = *source[ i ];
             if( source[ i ] == buffer[ buffer.length() - 1 ] )
                 buffer += source[ i ];
             else
             {
                 compressBuffer( buffer, compressedStr );
                 // loop is at the end of iteration
-                if ( i == source.size() -1 )
-                    compressedStr += std::string( 1,source [ i ]) + ";" ;
+                if ( i == source->size() -1 )
+                    compressedStr += std::string( 1, source[ i ] ) + ";" ;
                 else 
                     buffer = source[ i ];
             }

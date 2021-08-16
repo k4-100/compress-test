@@ -16,7 +16,7 @@ int main( int argc, char *argv[] )
         
         CMPS_write_to_file( 
             compressed_path,  
-            CMPS_compress( buffer )
+            CMPS_compress( &buffer )
         );
     }
     // decompress .cmps file

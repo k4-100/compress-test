@@ -8,6 +8,7 @@
 #include <ctime>
 #include <string>
 
+#define MIL 1000000
 
     /// reads data from file into std::string buffer
     /// \param path path to a file
@@ -22,7 +23,7 @@
     /// compresses string 
     /// \param source source string which has to be compressed
     /// \return compressed string
-    std::string CMPS_compress( const std::string source );
+    std::string CMPS_compress( const std::string *source );
     
     /// decompresses string 
     /// \param source source string which has to be decompressed
