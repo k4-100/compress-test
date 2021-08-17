@@ -34,7 +34,7 @@ all : run
 
 
 run: $(TARGET)
-	$(TARGET) -c 
+	$(TARGET) 
 $(TARGET) : $(OBJ)
 	g++ $^ -o $(TARGET) $(CFLAGS)
 
@@ -46,5 +46,5 @@ clean:
 # IMPLICIT RULES
 #####################
 
-$(RLSPATH)%.o : $(SRCPATH)%.cpp $(DEPS)
+$(RLSPATH)%.o : $(SRCPATH)%.c $(DEPS)
 	g++ -c $< -o $@ $(CFLAGS)
