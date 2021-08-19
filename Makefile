@@ -14,7 +14,7 @@ INCPATH :=include/
 # object files 
 OBJ  	:=$(RLSPATH)utl.o $(RLSPATH)main.o 
 # header dependencies
-DEPS 	:=$(INCPATH)utl.h
+DEPS 	:=$(INCPATH)utl.hpp
 
 # target
 TARGET 	:=$(RLSPATH)main.exe
@@ -34,9 +34,9 @@ all : run
 
 
 run: $(TARGET)
-	$(TARGET) 
+	$(TARGET) -d
 $(TARGET) : $(OBJ)
-	gcc $^ -o $(TARGET) $(CFLAGS)
+	g++ $^ -o $(TARGET) $(CFLAGS)
 
 clean:
 	rm $(RLSPATH)*.exe $(RLSPATH)*.o
@@ -46,5 +46,5 @@ clean:
 # IMPLICIT RULES
 #####################
 
-$(RLSPATH)%.o : $(SRCPATH)%.c $(DEPS)
-	gcc -c $< -o $@ $(CFLAGS)
+$(RLSPATH)%.o : $(SRCPATH)%.cpp $(DEPS)
+	g++ -c $< -o $@ $(CFLAGS)
