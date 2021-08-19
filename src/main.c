@@ -1,15 +1,28 @@
 #include "include/utl.h"
 
+// char *getString( )
+// {
+//     char *str = (char*) malloc( MIL * sizeof(char) );
+//     str = "WORDS";
+
+//     return str;
+// }
+
+
 int main( int argc, char *argv[] )
 {   
-    // const std::string default_path = "./release/generated.txt";
+    const char* default_path = "./release/generated.txt";
     // const std::string uncompressed_path =  "./release/generated.dcmps";
-    // const std::string compressed_path =  "./release/generated.cmps";
+    const char* compressed_path =  "./release/generated.cmps";
 
     // std::string buffer = "";
 
-    printf("%s", "C Compiled\n");
+    const char *buffer = CMPS_read_from_file( default_path );
 
+    CMPS_write_to_file( compressed_path, buffer );
+
+    // printf("%s", getString() );
+    
 
     // // compress .txt file
     // if( argv[1][1] == 'c' )

@@ -36,7 +36,7 @@ all : run
 run: $(TARGET)
 	$(TARGET) 
 $(TARGET) : $(OBJ)
-	g++ $^ -o $(TARGET) $(CFLAGS)
+	gcc $^ -o $(TARGET) $(CFLAGS)
 
 clean:
 	rm $(RLSPATH)*.exe $(RLSPATH)*.o
@@ -47,4 +47,4 @@ clean:
 #####################
 
 $(RLSPATH)%.o : $(SRCPATH)%.c $(DEPS)
-	g++ -c $< -o $@ $(CFLAGS)
+	gcc -c $< -o $@ $(CFLAGS)

@@ -1,31 +1,34 @@
 #include "include/utl.h"
 
 
-    // std::string CMPS_read_from_file( const std::string path )
-    // {
-    //     std::ifstream reader( path );
-    //     std::string buffer( std::istreambuf_iterator< char > ( reader ),{} );
-    //     reader.close();
-        
-
-    //     //   FILE *reader;
-    //     // char buff[200];
-    //     // char *buffer =  (char *)malloc( MIL * sizeof( char ) );
-    //     // reader = fopen( path.c_str(), "r" );
-    //     //     while( fgets( buff, 200, (FILE*)reader ) )
-    //     //         sprintf( buffer, "%s%s", buffer, buff );
-    //     // fclose( reader );
 
 
-    //     return buffer;
-    // }
+     char *CMPS_read_from_file( const char *path )
+    {
+        FILE *reader;
+        // char buff[200];
 
-    // void CMPS_write_to_file( const std::string path, const std::string buffer )
-    // {
-    //     std::ofstream writer( path );
-    //     writer << buffer;
-    //     writer.close();
-    // }
+        char *buffer =  (char *) malloc( (200 * MIL) * sizeof( char ) );
+        reader = fopen( path, "r" );
+
+        fread( buffer,  sizeof(char), 200 * MIL, reader);
+        fclose( reader );
+        size_t len = strlen(buffer);
+        printf("%lld\n", len);
+
+        return buffer;
+    }
+
+   void CMPS_write_to_file( const char *path, const char *buffer )
+    {
+        FILE *writer;
+        writer = fopen(path,"w");
+        fwrite( buffer, sizeof(char),200 * MIL, writer);
+        fclose( writer );
+        // std::ofstream writer( path );
+        // writer << buffer;
+        // writer.close();
+    }
 
     // std::string CMPS_compress( const std::string source )
     // {   

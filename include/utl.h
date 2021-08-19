@@ -9,17 +9,20 @@
 // #include <string>
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#define MIL 1000000
 
-    // /// reads data from file into std::string buffer
-    // /// \param path path to a file
-    // /// \return file content in form of std::string
-    // std::string CMPS_read_from_file( const std::string path );
+    /// reads data from file into char*
+    /// \param path path to a file
+    /// \return file content in form of 
+    char *CMPS_read_from_file( const char *path );
 
-    // /// writes data from std::string buffer into a file
-    // /// \param path path to a file
-    // /// \param buffer buffer to write into file 
-    // void CMPS_write_to_file( const std::string path, const std::string buffer );
+    /// writes data from char *buffer into a file
+    /// \param path path to a file
+    /// \param buffer buffer to write into file 
+    void CMPS_write_to_file( const char *path, const char *buffer );
 
     // /// compresses string 
     // /// \param source source string which has to be compressed
