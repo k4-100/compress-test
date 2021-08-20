@@ -3,31 +3,22 @@
 
 
 
-     char *CMPS_read_from_file( const char *path )
+    char *CMPS_read_from_file( const char *path )
     {
-        FILE *reader;
-
         char *buffer =  (char *) malloc( (200 * MIL) * sizeof( char ) );
-        reader = fopen( path, "r" );
         
-
-        fread( buffer,  sizeof(char), 200 * MIL, reader);
+        FILE *reader = fopen( path, "r" );
+            fread( buffer,  sizeof(char), 200 * MIL, reader );
         fclose( reader );
-        size_t len = strlen(buffer);
-        printf("%ld\n", len);
-
-        buffer[  strlen( buffer )  + 1] = '\0';
 
         return buffer;
     }
 
-   void CMPS_write_to_file( const char *path, const char *buffer )
+    void CMPS_write_to_file( const char *path, const char *buffer )
     {
-        FILE *writer;
-        writer = fopen(path,"w");
-        fwrite( buffer, sizeof(char), strlen(buffer) , writer);
+        FILE *writer = fopen( path, "w" );
+            fwrite( buffer, sizeof(char), strlen(buffer), writer );
         fclose( writer );
-      
     }
 
     // std::string CMPS_compress( const std::string source )
