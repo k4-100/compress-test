@@ -6,15 +6,17 @@
      char *CMPS_read_from_file( const char *path )
     {
         FILE *reader;
-        // char buff[200];
 
         char *buffer =  (char *) malloc( (200 * MIL) * sizeof( char ) );
         reader = fopen( path, "r" );
+        
 
         fread( buffer,  sizeof(char), 200 * MIL, reader);
         fclose( reader );
         size_t len = strlen(buffer);
-        printf("%lld\n", len);
+        printf("%ld\n", len);
+
+        buffer[  strlen( buffer )  + 1] = '\0';
 
         return buffer;
     }
@@ -23,11 +25,9 @@
     {
         FILE *writer;
         writer = fopen(path,"w");
-        fwrite( buffer, sizeof(char),200 * MIL, writer);
+        fwrite( buffer, sizeof(char), strlen(buffer) , writer);
         fclose( writer );
-        // std::ofstream writer( path );
-        // writer << buffer;
-        // writer.close();
+      
     }
 
     // std::string CMPS_compress( const std::string source )
