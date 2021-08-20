@@ -25,7 +25,9 @@ int main( int argc, char *argv[] )
     CMPS_write_to_file( decompressed_path, buff);
     free(buff);
 
-    // printf("%s", getString() );
+    CMPS_GEN_generate_test_file( 100 );
+
+    printf("result: %d\n", CMPS_GEN_generate_number(10,20) );
     
 
     // // compress .txt file

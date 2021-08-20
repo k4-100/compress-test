@@ -21,6 +21,66 @@
         fclose( writer );
     }
 
+    int CMPS_GEN_generate_number( const u_int16_t min, const u_int16_t max  )
+    {
+        srand( time(0) );
+        u_int16_t num = 0;
+        // determines if value is correct (in range)
+        int isCorrect = 0;
+
+        while( !isCorrect )
+        {   
+            isCorrect = 1;
+            num = rand() % (max+1);
+            if( num < min || num > max )
+                isCorrect = 0;
+        }
+
+        return num;
+    }
+    
+    void CMPS_GEN_generate_test_file( const u_int32_t size )
+    {
+        
+        #pragma region random number generator
+            
+            // printf( "%d\n", rand() % 100 );
+            // std::mt19937 generator;
+            // generator.seed( std::time( 0 ) );
+            // std::uniform_int_distribution<u_int32_t> charDice(65,77);
+            // std::uniform_int_distribution<u_int32_t> lengthDice(1,10);
+        #pragma endregion // !random number generator
+
+
+        #pragma region buffer generation
+            char *buffer = "";
+            for( u_int32_t x=0; x<size; x++)
+            {   
+                for(u_int32_t y=0; y<18; y++)
+                {
+                    // int currentChar = (char)charDice( generator );
+                    // u_int32_t currentLength = lengthDice( generator );
+                    // for( u_int32_t z=0; z<currentLength; z++ )
+                    // {
+                    //     // buffer.push_back( currentChar );
+                    // }
+
+                    
+                }
+                // if(x+1 < size)
+                //     buffer += '\n';
+            }
+        #pragma endregion  // !buffer generation 
+
+        
+        #pragma region write to a file
+            // std::ofstream writer("./release/generated.txt");
+            // writer << buffer;
+            // writer.close();
+        #pragma endregion // !write to a file
+    
+    }
+
     // std::string CMPS_compress( const std::string source )
     // {   
 
@@ -110,6 +170,9 @@
     //     return decompressedStr;
     // }
 
+
+
+  
 
 
     // void CMPS_GEN_generate_test_file( const uint32_t size )
