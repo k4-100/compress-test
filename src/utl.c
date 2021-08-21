@@ -14,7 +14,9 @@
     }
 
     void CMPS_write_to_file( const char *path, const char *buffer )
-    {
+    {   
+        // printf("buffer: %s\n", buffer);
+        // printf("path: %s\n", path);
         FILE *writer = fopen( path, "w" );
             fwrite( buffer, sizeof(char), strlen(buffer), writer );
         fclose( writer );
@@ -22,7 +24,7 @@
 
     int CMPS_GEN_generate_number( const u_int16_t min, const u_int16_t max  )
     {
-        srand( time(0) );
+        // srand( time(0) );
         u_int16_t num = 0;
         // determines if value is correct (in range)
         int isCorrect = 0;
@@ -42,26 +44,27 @@
     void CMPS_GEN_generate_test_file( const u_int32_t size )
     {
         
+
         #pragma region buffer generation
-            char *buffer = "";
+            
+            char *buffer = (char*) malloc( (MIL * 200) * sizeof(char) );
+            // int index = 0;
+            // char *buffer = "1234";
             for( u_int32_t x=0; x<size; x++)
             {   
                 for(u_int32_t y=0; y<18; y++)
                 {
-                    // int currentChar = (char)charDice( generator );
-                    // u_int32_t currentLength = lengthDice( generator );
-                    // for( u_int32_t z=0; z<currentLength; z++ )
-                    // {
-                    //     // buffer.push_back( currentChar );
-                    // }
-               
+                    char currentChar = (char)CMPS_GEN_generate_number(65,77);
+                    u_int32_t currentLength = CMPS_GEN_generate_number(1,10);
+                    for( u_int32_t z=0; z<currentLength; z++ )
+                       sprintf( buffer, "%s%c", buffer, currentChar );
                 }
-                // if(x+1 < size)
-                //     buffer += '\n';
+                if(x+1 < size)
+                    sprintf( buffer, "%s%c", buffer, '\n' );
             }
         #pragma endregion  // !buffer generation 
 
-        CMPS_write_to_file( "generated.txt", buffer );
+        CMPS_write_to_file( "./release/generated.txt", buffer );
     }
 
     // std::string CMPS_compress( const std::string source )

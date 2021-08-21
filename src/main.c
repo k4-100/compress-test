@@ -17,21 +17,21 @@ int main( int argc, char *argv[] )
 
     // std::string buffer = "";
 
-    char *buffer = CMPS_read_from_file( default_path );
-    CMPS_write_to_file( compressed_path, buffer );
-    free ( buffer );
+    // char *buffer = CMPS_read_from_file( default_path );
+    // CMPS_write_to_file( compressed_path, buffer );
+    // free ( buffer );
 
-    char *buff = CMPS_read_from_file( compressed_path );
-    CMPS_write_to_file( decompressed_path, buff );
-    free( buff );
+    // char *buff = CMPS_read_from_file( compressed_path );
+    // CMPS_write_to_file( decompressed_path, buff );
+    // free( buff );
 
-    // CMPS_GEN_generate_test_file( 100 );
+    CMPS_GEN_generate_test_file( 10000 );
 
-    printf( "result: %d\n", CMPS_GEN_generate_number(10,20) );
+    // printf( "result: %d\n", CMPS_GEN_generate_number(10,20) );
     
 
     // // compress .txt file
-    // if( argv[1][1] == 'c' )
+    // if( argv[1][1] == 'c' )`
     // {   
     //     buffer = CMPS_read_from_file( default_path );
     //     CMPS_write_to_file( 
