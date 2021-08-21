@@ -10,7 +10,6 @@
         FILE *reader = fopen( path, "r" );
             fread( buffer,  sizeof(char), 200 * MIL, reader );
         fclose( reader );
-
         return buffer;
     }
 
@@ -30,10 +29,12 @@
 
         while( !isCorrect )
         {   
-            isCorrect = 1;
             num = rand() % (max+1);
             if( num < min || num > max )
                 isCorrect = 0;
+            else
+                isCorrect = 1;
+           
         }
 
         return num;

@@ -3,3 +3,4 @@
 .vscode
 release/*.txt
 release/*cmps
+generated.txt
