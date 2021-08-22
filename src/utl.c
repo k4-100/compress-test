@@ -124,7 +124,7 @@
     {   
 
         printf("%ld\n", strlen(source) );
-        char *compressedStr = (char*) malloc( strlen( source )  );
+        char *compressedStr =  (char *) malloc( (200 * MIL) * sizeof( char ) );
         char buffer[10];
         strcat(buffer,  (char[2]) {  source[0], '\0' } );
 

@@ -18,7 +18,7 @@ int main( int argc, char *argv[] )
     // std::string buffer = "";
 
 
-    // CMPS_GEN_generate_test_file( 100 );
+    // CMPS_GEN_generate_test_file( MIL );
 
     char *buffer = CMPS_read_from_file( default_path );
     char *b = CMPS_compress( buffer );
