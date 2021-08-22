@@ -20,7 +20,7 @@ DEPS 	:=$(INCPATH)utl.h
 TARGET 	:=$(RLSPATH)main.exe
 
 # compiler flags
-CFLAGS 	:=-iquote. -Wall
+CFLAGS 	:=-iquote. -Wall -O3
 
 # number big enough to cause compression/decompression to run for few seconds
 MIL = 1000000

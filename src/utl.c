@@ -40,27 +40,39 @@
 
         return num;
     }
+
+
+    // char* mystrcat( char* dest, char* src )
+    // {
+    //     while (*dest) dest++;
+    //     while (*dest++ = *src++);
+    //     return --dest;
+    // }
     
     void CMPS_GEN_generate_test_file( const u_int32_t size )
     {
         
-
+        srand( time(0) );
         #pragma region buffer generation
             
             char *buffer = (char*) malloc( (MIL * 200) * sizeof(char) );
-            // int index = 0;
+            char temp[200];
+            int index = 0;
             // char *buffer = "1234";
             for( u_int32_t x=0; x<size; x++)
             {   
-                for(u_int32_t y=0; y<18; y++)
+                for(u_int8_t y=0; y<18; y++)
                 {
                     char currentChar = (char)CMPS_GEN_generate_number(65,77);
-                    u_int32_t currentLength = CMPS_GEN_generate_number(1,10);
-                    for( u_int32_t z=0; z<currentLength; z++ )
-                       sprintf( buffer, "%s%c", buffer, currentChar );
+                    u_int8_t currentLength = CMPS_GEN_generate_number(1,10);
+                    for( u_int8_t z=0; z<currentLength; z++ )
+                        strcat(temp,  (char[2]) { (char) currentChar, '\0' }); 
                 }
+                strcat( buffer, temp );
+                strcpy( temp, "");
+
                 if(x+1 < size)
-                    sprintf( buffer, "%s%c", buffer, '\n' );
+                    strcat( buffer, (char[2]){ '\n', '\0' } );
             }
         #pragma endregion  // !buffer generation 
 
