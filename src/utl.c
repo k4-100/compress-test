@@ -107,59 +107,102 @@
     void CMPS_compressBuffer( char *buffer, char *compressedStr )
     {
         if( strlen( buffer ) > 4)
-            sprintf(compressedStr, "%ldx%c;", strlen( buffer ),buffer[0] );
+        {   
+            char ending[100] = "";
+            // puts("if( strlen( buffer ) > 4)");
+            sprintf(ending, "%ldx%c;", strlen( buffer ),buffer[0] );
+            strcat( compressedStr, ending );
+        }
         else
-            strcat( buffer, (char[2]){ ';', '\0'} );
-            // compressedStr += buffer + ';';
+        {
+            strcat( compressedStr, buffer );
+            strcat( compressedStr, (char[2]){ ';', '\0'} );
+        }
     }
 
     char *CMPS_compress( const char *source )
     {   
 
-        /// compresses current buffer
-        /// \param buffer buffer to be compress
-        /// \param compressedStr string concatenated by compressed buffer
-        // auto compressBuffer = [](const std::string buffer, std::string compressedStr )
-        // {
-        //      if( buffer.size() > 4)
-        //             compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
-        //         else
-        //             compressedStr += buffer + ';';
-                
-        // };
         printf("%ld\n", strlen(source) );
         char *compressedStr = (char*) malloc( strlen( source )  );
-        char *buffer = (char[2]) {  source[0], '\0' };
+        char buffer[10];
+        strcat(buffer,  (char[2]) {  source[0], '\0' } );
 
         
 
         for( u_int32_t i=1; i< strlen( source ); i++ )
         {
-            if( source[ i ] == buffer[ strlen( buffer ) - 1 ] )
+            if( buffer[ strlen( buffer ) - 1 ] == source[ i ]   )
                 // buffer += source[ i ];
                 strcat(buffer, (char[2]){ source[i], '\0' } );
             else
-            {
+            {   
+                // printf("buffer: %ld\n", strlen(buffer) );
+                // printf("compressedStr: %ld\n", strlen(compressedStr) );
                 CMPS_compressBuffer( buffer, compressedStr );
                 // loop is at the end of iteration
                 if ( i ==  strlen( source ) -1 )
                     strcat( compressedStr, (char[3]){ source[i], ';', '\0' }  );
                     // compressedStr += std::string( 1,source [ i ]) + ";" ;
                 else 
-                    strcat( buffer, (char[2]){source[i], '\0' } );
+                    strcpy( buffer, (char[2]){source[i], '\0' } );
                     // buffer = source[ i ];
             }
-            printf("buffer: %s\n", buffer );
+            // printf("buffer: %s\n", buffer );
             // std::cout<< buffer << '\n';
         }
 
         CMPS_compressBuffer( buffer, compressedStr );
 
-        printf("buffer: %ld\n", strlen(buffer) );
-        printf("compressedStr: %ld\n", strlen(compressedStr) );
+        
+        
 
         return compressedStr;
     }
+
+
+ // std::string CMPS_compress( const std::string source )
+    // {   
+
+    //     /// compresses current buffer
+    //     /// \param buffer buffer to be compress
+    //     /// \param compressedStr string concatenated by compressed buffer
+    //     auto compressBuffer = [](const std::string buffer, std::string compressedStr )
+    //     {
+    //          if( buffer.size() > 4)
+    //                 compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
+    //             else
+    //                 compressedStr += buffer + ';';
+                
+    //     };
+    //     std::string compressedStr = "";
+    //     std::string buffer = { source[ 0 ] };
+
+        
+
+    //     for( uint32_t i=1; i<source.size(); i++ )
+    //     {
+    //         if( source[ i ] == buffer[ buffer.length() - 1 ] )
+    //             buffer += source[ i ];
+    //         else
+    //         {
+    //             compressBuffer( buffer, compressedStr );
+    //             // loop is at the end of iteration
+    //             if ( i == source.size() -1 )
+    //                 compressedStr += std::string( 1,source [ i ]) + ";" ;
+    //             else 
+    //                 buffer = source[ i ];
+    //         }
+            
+    //         // std::cout<< buffer << '\n';
+    //     }
+
+    //     compressBuffer( buffer, compressedStr );
+
+    //     return compressedStr;
+    // }
+
+
 
 
     // std::string CMPS_decompress( const std::string source )
