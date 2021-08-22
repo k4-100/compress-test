@@ -11,11 +11,18 @@
 
 int main( int argc, char *argv[] )
 {   
-    // const char* default_path = "./release/generated.txt";
-    // const char* compressed_path =  "./release/generated.cmps";
+    const char* default_path = "./release/generated.txt";
+    const char* compressed_path =  "./release/generated.cmps";
     // const char* decompressed_path =  "./release/generated.dcmps";
 
     // std::string buffer = "";
+
+
+    // CMPS_GEN_generate_test_file( 100 );
+
+    char *buffer = CMPS_read_from_file( default_path );
+    char *b = CMPS_compress( buffer );
+    CMPS_write_to_file( compressed_path, b );
 
     // char *buffer = CMPS_read_from_file( default_path );
     // CMPS_write_to_file( compressed_path, buffer );
@@ -25,7 +32,7 @@ int main( int argc, char *argv[] )
     // CMPS_write_to_file( decompressed_path, buff );
     // free( buff );
 
-    CMPS_GEN_generate_test_file( MIL );
+   
 
     // printf( "result: %d\n", CMPS_GEN_generate_number(10,20) );
     

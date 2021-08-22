@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define MIL 1000000
 
@@ -24,10 +25,16 @@
     /// \param buffer buffer to write into file 
     void CMPS_write_to_file( const char *path, const char *buffer );
 
+
+    /// compresses current buffer
+    /// \param buffer buffer to be compress
+    /// \param compressedStr string concatenated by compressed buffer
+    void CMPS_compressBuffer( char *buffer, char *compressedStr );
+
     // /// compresses string 
-    // /// \param source source string which has to be compressed
+    // /// \param source string which has to be compressed
     // /// \return compressed string
-    // std::string CMPS_compress( const std::string source );
+    char *CMPS_compress( const char *source );
     
     // /// decompresses string 
     // /// \param source source string which has to be decompressed
