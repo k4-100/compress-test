@@ -42,41 +42,63 @@
     }
 
 
-    // char* mystrcat( char* dest, char* src )
-    // {
-    //     while (*dest) dest++;
-    //     while (*dest++ = *src++);
-    //     return --dest;
-    // }
-    
     void CMPS_GEN_generate_test_file( const u_int32_t size )
     {
         
         srand( time(0) );
-        #pragma region buffer generation
-            
-            char *buffer = (char*) malloc( (MIL * 200) * sizeof(char) );
-            char temp[200];
-            int index = 0;
-            // char *buffer = "1234";
-            for( u_int32_t x=0; x<size; x++)
-            {   
-                for(u_int8_t y=0; y<18; y++)
-                {
-                    char currentChar = (char)CMPS_GEN_generate_number(65,77);
-                    u_int8_t currentLength = CMPS_GEN_generate_number(1,10);
-                    for( u_int8_t z=0; z<currentLength; z++ )
-                        strcat(temp,  (char[2]) { (char) currentChar, '\0' }); 
-                }
-                strcat( buffer, temp );
-                strcpy( temp, "");
 
-                if(x+1 < size)
-                    strcat( buffer, (char[2]){ '\n', '\0' } );
+        char buffer[200];
+        
+        FILE *writer = fopen( "./release/generated.txt", "wb" );
+            fwrite( "", 0, 0, writer );
+        fclose( writer );
+
+        for( u_int32_t x=0; x<size; x++)
+        {   
+            for(u_int8_t y=0; y<18; y++)
+            {
+                char currentChar = (char)CMPS_GEN_generate_number(65,77);
+                u_int8_t currentLength = CMPS_GEN_generate_number(1,10);
+                for( u_int8_t z=0; z<currentLength; z++ )
+                    strcat(buffer,  (char[2]) {  currentChar, '\0' }); 
             }
-        #pragma endregion  // !buffer generation 
 
-        CMPS_write_to_file( "./release/generated.txt", buffer );
+            if(x+1 < size)
+                strcat( buffer, (char[2]){ '\n', '\0' } );
+
+            writer = fopen( "./release/generated.txt", "ab" );
+                fwrite( buffer, sizeof(char), strlen(buffer), writer );
+            fclose( writer );
+            
+            strcpy( buffer, "");
+        }
+
+
+        // #pragma region buffer generation
+            
+        //     char *buffer = (char*) malloc( (MIL * 200) * sizeof(char) );
+        //     char temp[200];
+        //     int index = 0;
+        //     // char *buffer = "1234";
+        //     for( u_int32_t x=0; x<size; x++)
+        //     {   
+        //         for(u_int8_t y=0; y<18; y++)
+        //         {
+        //             char currentChar = (char)CMPS_GEN_generate_number(65,77);
+        //             u_int8_t currentLength = CMPS_GEN_generate_number(1,10);
+        //             for( u_int8_t z=0; z<currentLength; z++ )
+        //                 strcat(temp,  (char[2]) {  currentChar, '\0' }); 
+        //         }
+        //         strcat( buffer, temp );
+        //         strcpy( temp, "");
+
+        //         if(x+1 < size)
+        //             strcat( buffer, (char[2]){ '\n', '\0' } );
+        //     }
+        // #pragma endregion  // !buffer generation 
+
+        // puts("DONE CALCULATING");
+        // CMPS_write_to_file( "./release/generated.txt", buffer );
     }
 
     // std::string CMPS_compress( const std::string source )
