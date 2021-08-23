@@ -54,7 +54,7 @@
     /// generate number using random()
     /// \param min minimal value that can be returned
     /// \param max maximal value that can be returned
-    int CMPS_GEN_generate_number( const u_int16_t min , const u_int16_t max  );
+    int CMPS_GEN_generate_number( const u_int8_t min, const u_int8_t max );
     /// generate test text file to test other functions
     /// \param size amount of line to write into a file
     void CMPS_GEN_generate_test_file( const u_int32_t size );

@@ -16,8 +16,6 @@
    
     void CMPS_write_to_file( const char *path, const char *buffer )
     {   
-        // printf("buffer: %s\n", buffer);
-        // printf("path: %s\n", path);
         FILE *writer = fopen( path, "w" );
             fwrite( buffer, sizeof(char), strlen(buffer), writer );
         fclose( writer );
@@ -30,6 +28,7 @@
             fwrite( "", 0, 0, writer );
         fclose( writer );
 
+        // appends data to the same file 
         writer = fopen( path, "a" );
         for( size_t i=0; i< ba_size; i++ )
             fwrite( bufferArr[i], sizeof(char), strlen( bufferArr[i] +1 ), writer );
@@ -37,17 +36,16 @@
     }
 
 
-    int CMPS_GEN_generate_number( const u_int16_t min, const u_int16_t max  )
+    int CMPS_GEN_generate_number( const u_int8_t min, const u_int8_t max )
     {
-        // srand( time(0) );
-        u_int16_t num = 0;
+        u_int8_t num = 0;
         // determines if value is correct (in range)
-        int isCorrect = 0;
+        u_int8_t isCorrect = 0;
 
         while( !isCorrect )
         {   
             num = rand() % (max+1);
-            if( num < min || num > max )
+            if(num < min)
                 isCorrect = 0;
             else
                 isCorrect = 1;
@@ -59,7 +57,7 @@
 
     void CMPS_GEN_generate_test_file( const u_int32_t size )
     {
-        
+        // set rand seed for use by CMPS_GEN_generate_number
         srand( time(0) );
 
         // array pointer storing char pointers 
@@ -88,7 +86,7 @@
             // adds new line at the of buffer if this isn't the last line with text (
             // prevents creation of additional empty line at the end)
             if(x+1 < size)
-                strcat(buffer,  (char[1]) {'\n'} ); 
+                strcat(buffer, (char*) "\n\n" ); 
           
             // allocate memory for pointer at given index
             // copy buffer to said pointer
@@ -98,13 +96,9 @@
             strcpy( buffer, "" );
             // increment index
             bufferArr_index++;
-            
-            
         }
-
-        printf("%ld\n", bufferArr_index);
+        
         CMPS_write_to_file_from_2d_pointer( "./release/generated.txt", bufferArr, bufferArr_index );
-
     }
 
     /// compresses current buffer
