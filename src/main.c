@@ -17,12 +17,13 @@ int main( int argc, char *argv[] )
 
     // std::string buffer = "";
 
+    
+    CMPS_GEN_generate_test_file( MIL );
 
-    // CMPS_GEN_generate_test_file( MIL );
 
-    char *buffer = CMPS_read_from_file( default_path );
-    char *b = CMPS_compress( buffer );
-    CMPS_write_to_file( compressed_path, b );
+    // char *buffer = CMPS_read_from_file( default_path );
+    // char *b = CMPS_compress( buffer );
+    // CMPS_write_to_file( compressed_path, b );
 
     // char *buffer = CMPS_read_from_file( default_path );
     // CMPS_write_to_file( compressed_path, buffer );

@@ -13,6 +13,7 @@
         return buffer;
     }
 
+   
     void CMPS_write_to_file( const char *path, const char *buffer )
     {   
         // printf("buffer: %s\n", buffer);
@@ -21,6 +22,14 @@
             fwrite( buffer, sizeof(char), strlen(buffer), writer );
         fclose( writer );
     }
+
+    void CMPS_write_to_file_from_2d_pointer( const char *path, const char **buffer )
+    {   
+        FILE *writer = fopen( path, "w" );
+            fwrite( buffer, sizeof(char), strlen(buffer), writer );
+        fclose( writer );
+    }
+
 
     int CMPS_GEN_generate_number( const u_int16_t min, const u_int16_t max  )
     {
@@ -47,58 +56,57 @@
         
         srand( time(0) );
 
+        // array pointer storing char pointers 
+        char **bufferArr = (char**) malloc( MIL * 200 * sizeof( char* ) );
+        size_t bufferArr_index = 0;
+        // char **bufferArr = (char**) calloc( MIL * 200, sizeof(char*) );
+        if( bufferArr == NULL )
+            puts("ALLOCATION ERROR");
+        // temporary, stack allocated buffer passing data to **bufferArr
         char buffer[200];
         
-        FILE *writer = fopen( "./release/generated.txt", "wb" );
-            fwrite( "", 0, 0, writer );
-        fclose( writer );
+        // char* bufferPtr = &buffer;
+        // printf("bufferPtr: %ld\n", bufferPtr);
 
+
+        // FILE *writer = fopen( "./release/generated.txt", "wb" );
+        //     fwrite( "", 0, 0, writer );
+        // fclose( writer );
+
+        // whole file 
         for( u_int32_t x=0; x<size; x++)
         {   
+            // whole line 
             for(u_int8_t y=0; y<18; y++)
-            {
+            {  
                 char currentChar = (char)CMPS_GEN_generate_number(65,77);
                 u_int8_t currentLength = CMPS_GEN_generate_number(1,10);
+                // partial sequence 
                 for( u_int8_t z=0; z<currentLength; z++ )
+                    // add char to 
                     strcat(buffer,  (char[2]) {  currentChar, '\0' }); 
+
+                
+            }
+            // condition ensures that there will be no new line character at the end of file
+            // causing empty line to generate
+            if(x+1 < size)
+            {
+                // allocate memory for pointer at given index
+                // copy buffer to said pointer
+                bufferArr[ bufferArr_index ] = (char*) malloc( strlen(buffer) + 1 );
+                strcpy( bufferArr[ bufferArr_index ], buffer );
+                // clears out buffer for next iteration
+                strcpy( buffer, "" );
             }
 
-            if(x+1 < size)
-                strcat( buffer, (char[2]){ '\n', '\0' } );
-
-            writer = fopen( "./release/generated.txt", "ab" );
-                fwrite( buffer, sizeof(char), strlen(buffer), writer );
-            fclose( writer );
+            // writer = fopen( "./release/generated.txt", "ab" );
+            //     fwrite( buffer, sizeof(char), strlen(buffer), writer );
+            // fclose( writer );
+            // clears out buffer
             
-            strcpy( buffer, "");
         }
 
-
-        // #pragma region buffer generation
-            
-        //     char *buffer = (char*) malloc( (MIL * 200) * sizeof(char) );
-        //     char temp[200];
-        //     int index = 0;
-        //     // char *buffer = "1234";
-        //     for( u_int32_t x=0; x<size; x++)
-        //     {   
-        //         for(u_int8_t y=0; y<18; y++)
-        //         {
-        //             char currentChar = (char)CMPS_GEN_generate_number(65,77);
-        //             u_int8_t currentLength = CMPS_GEN_generate_number(1,10);
-        //             for( u_int8_t z=0; z<currentLength; z++ )
-        //                 strcat(temp,  (char[2]) {  currentChar, '\0' }); 
-        //         }
-        //         strcat( buffer, temp );
-        //         strcpy( temp, "");
-
-        //         if(x+1 < size)
-        //             strcat( buffer, (char[2]){ '\n', '\0' } );
-        //     }
-        // #pragma endregion  // !buffer generation 
-
-        // puts("DONE CALCULATING");
-        // CMPS_write_to_file( "./release/generated.txt", buffer );
     }
 
     /// compresses current buffer
@@ -124,7 +132,13 @@
     {   
 
         printf("%ld\n", strlen(source) );
-        char *compressedStr =  (char *) malloc( (200 * MIL) * sizeof( char ) );
+
+        // char pointer containing pointers to char pointer string which have been compressed
+        char **compressed_str_arr = (char**) malloc( ( MIL + 1 ) * sizeof( char* ) ); 
+        printf( "compressed_str_arr: %ld\n", sizeof(compressed_str_arr) );
+
+
+        char *compressedStr =  (char *) malloc( 200 );
         char buffer[10];
         strcat(buffer,  (char[2]) {  source[0], '\0' } );
 
