@@ -25,10 +25,11 @@
     /// \param buffer buffer to write into file 
     void CMPS_write_to_file( const char *path, const char *buffer );
     
-    // writes data from char **buffer into a file
+    // writes data from char **bufferArr into a file
     /// \param path path to a file
-    /// \param buffer 2d pointer containing char pointers
-    void CMPS_write_to_file_from_2d_pointer( const char *path, const char **buffer );
+    /// \param bufferArr 2d pointer containing char pointers
+    /// \param ba_size bufferArr size 
+    void CMPS_write_to_file_from_2d_pointer( const char *path, char **bufferArr, const size_t ba_size );
 
     /// compresses current buffer
     /// \param buffer buffer to be compress

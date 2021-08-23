@@ -23,10 +23,16 @@
         fclose( writer );
     }
 
-    void CMPS_write_to_file_from_2d_pointer( const char *path, const char **buffer )
+     void CMPS_write_to_file_from_2d_pointer( const char *path, char **bufferArr, const size_t ba_size )
     {   
+        // clears out whole file
         FILE *writer = fopen( path, "w" );
-            fwrite( buffer, sizeof(char), strlen(buffer), writer );
+            fwrite( "", 0, 0, writer );
+        fclose( writer );
+
+        writer = fopen( path, "a" );
+        for( size_t i=0; i< ba_size; i++ )
+            fwrite( bufferArr[i], sizeof(char), strlen( bufferArr[i] +1 ), writer );
         fclose( writer );
     }
 
@@ -64,14 +70,6 @@
             puts("ALLOCATION ERROR");
         // temporary, stack allocated buffer passing data to **bufferArr
         char buffer[200];
-        
-        // char* bufferPtr = &buffer;
-        // printf("bufferPtr: %ld\n", bufferPtr);
-
-
-        // FILE *writer = fopen( "./release/generated.txt", "wb" );
-        //     fwrite( "", 0, 0, writer );
-        // fclose( writer );
 
         // whole file 
         for( u_int32_t x=0; x<size; x++)
@@ -86,26 +84,26 @@
                     // add char to 
                     strcat(buffer,  (char[2]) {  currentChar, '\0' }); 
 
-                
             }
-            // condition ensures that there will be no new line character at the end of file
-            // causing empty line to generate
+            // adds new line at the of buffer if this isn't the last line with text (
+            // prevents creation of additional empty line at the end)
             if(x+1 < size)
-            {
-                // allocate memory for pointer at given index
-                // copy buffer to said pointer
-                bufferArr[ bufferArr_index ] = (char*) malloc( strlen(buffer) + 1 );
-                strcpy( bufferArr[ bufferArr_index ], buffer );
-                // clears out buffer for next iteration
-                strcpy( buffer, "" );
-            }
-
-            // writer = fopen( "./release/generated.txt", "ab" );
-            //     fwrite( buffer, sizeof(char), strlen(buffer), writer );
-            // fclose( writer );
-            // clears out buffer
+                strcat(buffer,  (char[1]) {'\n'} ); 
+          
+            // allocate memory for pointer at given index
+            // copy buffer to said pointer
+            bufferArr[ bufferArr_index ] = (char*) malloc( strlen(buffer) + 1 );
+            strcpy( bufferArr[ bufferArr_index ], buffer );
+            // clears out buffer for next iteration
+            strcpy( buffer, "" );
+            // increment index
+            bufferArr_index++;
+            
             
         }
+
+        printf("%ld\n", bufferArr_index);
+        CMPS_write_to_file_from_2d_pointer( "./release/generated.txt", bufferArr, bufferArr_index );
 
     }
 
