@@ -101,23 +101,23 @@
         CMPS_write_to_file_from_2d_pointer( "./release/generated.txt", bufferArr, bufferArr_index );
     }
 
-    /// compresses current buffer
-    /// \param buffer buffer to be compress
-    /// \param compressedStr string concatenated by compressed buffer
-    void CMPS_compressBuffer( char *buffer, char *compressedStr )
+
+    void CMPS_compressBuffer( char *buffer, char *compressed_str, char **compressed_str_arr )
     {
         if( strlen( buffer ) > 4)
         {   
             char ending[100] = "";
             // puts("if( strlen( buffer ) > 4)");
             sprintf(ending, "%ldx%c;", strlen( buffer ),buffer[0] );
-            strcat( compressedStr, ending );
+            strcat( compressed_str, ending );
         }
         else
         {
-            strcat( compressedStr, buffer );
-            strcat( compressedStr, (char[2]){ ';', '\0'} );
+            strcat( compressed_str, buffer );
+            strcat( compressed_str, (char[2]){ ';', '\0'} );
         }
+
+        strcpy( compressed_str, "" );
     }
 
     char **CMPS_compress( const char *source )
@@ -127,14 +127,10 @@
 
         // char pointer containing pointers to char pointer string which have been compressed
         char **compressed_str_arr = (char**) malloc( ( MIL + 1 ) * sizeof( char* ) ); 
-        printf( "compressed_str_arr: %ld\n", sizeof(compressed_str_arr) );
-
-
-        char *compressedStr =  (char *) malloc( 200 );
+        char compressed_str[200];
         char buffer[10];
-        strcat(buffer,  (char[2]) {  source[0], '\0' } );
-
         
+        strcat(buffer,  (char[2]) {  source[0], '\0' } );
 
         for( u_int32_t i=1; i< strlen( source ); i++ )
         {
@@ -143,22 +139,20 @@
                 strcat(buffer, (char[2]){ source[i], '\0' } );
             else
             {   
-                // printf("buffer: %ld\n", strlen(buffer) );
-                // printf("compressedStr: %ld\n", strlen(compressedStr) );
-                CMPS_compressBuffer( buffer, compressedStr );
+                CMPS_compressBuffer( buffer, compressed_str, compressed_str_arr );
                 // loop is at the end of iteration
                 if ( i ==  strlen( source ) -1 )
-                    strcat( compressedStr, (char[3]){ source[i], ';', '\0' }  );
-                    // compressedStr += std::string( 1,source [ i ]) + ";" ;
+                    // compressed_str += std::string( 1,source [ i ]) + ";" ;
+                    strcat( compressed_str, (char[3]){ source[i], ';', '\0' }  );
                 else 
-                    strcpy( buffer, (char[2]){source[i], '\0' } );
                     // buffer = source[ i ];
+                    strcpy( buffer, (char[2]){source[i], '\0' } );
             }
         }
 
-        CMPS_compressBuffer( buffer, compressedStr );
+        CMPS_compressBuffer( buffer, compressed_str, compressed_str_arr );
 
-        return compressedStr;
+        return compressed_str_arr;
     }
 
 
@@ -167,16 +161,16 @@
 
     //     /// compresses current buffer
     //     /// \param buffer buffer to be compress
-    //     /// \param compressedStr string concatenated by compressed buffer
-    //     auto compressBuffer = [](const std::string buffer, std::string compressedStr )
+    //     /// \param compressed_str string concatenated by compressed buffer
+    //     auto compressBuffer = [](const std::string buffer, std::string compressed_str )
     //     {
     //          if( buffer.size() > 4)
-    //                 compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
+    //                 compressed_str += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
     //             else
-    //                 compressedStr += buffer + ';';
+    //                 compressed_str += buffer + ';';
                 
     //     };
-    //     std::string compressedStr = "";
+    //     std::string compressed_str = "";
     //     std::string buffer = { source[ 0 ] };
 
         
@@ -187,10 +181,10 @@
     //             buffer += source[ i ];
     //         else
     //         {
-    //             compressBuffer( buffer, compressedStr );
+    //             compressBuffer( buffer, compressed_str );
     //             // loop is at the end of iteration
     //             if ( i == source.size() -1 )
-    //                 compressedStr += std::string( 1,source [ i ]) + ";" ;
+    //                 compressed_str += std::string( 1,source [ i ]) + ";" ;
     //             else 
     //                 buffer = source[ i ];
     //         }
@@ -198,9 +192,9 @@
     //         // std::cout<< buffer << '\n';
     //     }
 
-    //     compressBuffer( buffer, compressedStr );
+    //     compressBuffer( buffer, compressed_str );
 
-    //     return compressedStr;
+    //     return compressed_str;
     // }
 
 
@@ -210,8 +204,8 @@
     // { 
     //     /// decompresses current buffer
     //     /// \param buffer buffer to be decompressed
-    //     /// \param compressedStr string concatenated by decompressed buffer
-    //     auto decompressBuffer = []( std::string buffer, std::string decompressedStr )
+    //     /// \param compressed_str string concatenated by decompressed buffer
+    //     auto decompressBuffer = []( std::string buffer, std::string decompressed_str )
     //     {   
     //         uint32_t multiplicator = 0;
     //         std::string sign = "";
@@ -223,10 +217,10 @@
     //             sign = buffer.substr( crossPos+1, 1 );
 
     //             for(uint32_t i=0; i<multiplicator; i++)
-    //                 decompressedStr += sign;
+    //                 decompressed_str += sign;
     //         }
     //         else    
-    //             decompressedStr += buffer;
+    //             decompressed_str += buffer;
     //         buffer = "";
 
     //     };
@@ -234,7 +228,7 @@
            
 
 
-    //     std::string decompressedStr = "";
+    //     std::string decompressed_str = "";
     //     std::string buffer = "";
 
     //     for( uint32_t i=0; i<source.size(); i++ )
@@ -243,14 +237,14 @@
     //             buffer += source[ i ];
     //         else
     //         {      
-    //             decompressBuffer( buffer, decompressedStr );
+    //             decompressBuffer( buffer, decompressed_str );
     //         }
     //     }
 
-    //     if(decompressedStr != "")
-    //         decompressBuffer( buffer, decompressedStr );
+    //     if(decompressed_str != "")
+    //         decompressBuffer( buffer, decompressed_str );
 
-    //     return decompressedStr;
+    //     return decompressed_str;
     // }
 
 
