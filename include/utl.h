@@ -36,10 +36,10 @@
     /// \param compressedStr string concatenated by compressed buffer
     void CMPS_compressBuffer( char *buffer, char *compressedStr );
 
-    // /// compresses string 
-    // /// \param source string which has to be compressed
-    // /// \return compressed string
-    char *CMPS_compress( const char *source );
+    /// compresses string 
+    /// \param source string which has to be compressed
+    /// \return compressed 2d char pointer containing compressed lines of text
+    char **CMPS_compress( const char *source );
     
     // /// decompresses string 
     // /// \param source source string which has to be decompressed

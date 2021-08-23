@@ -120,7 +120,7 @@
         }
     }
 
-    char *CMPS_compress( const char *source )
+    char **CMPS_compress( const char *source )
     {   
 
         printf("%ld\n", strlen(source) );
@@ -154,14 +154,9 @@
                     strcpy( buffer, (char[2]){source[i], '\0' } );
                     // buffer = source[ i ];
             }
-            // printf("buffer: %s\n", buffer );
-            // std::cout<< buffer << '\n';
         }
 
         CMPS_compressBuffer( buffer, compressedStr );
-
-        
-        
 
         return compressedStr;
     }
