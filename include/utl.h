@@ -35,7 +35,7 @@
     /// \param buffer buffer to be compress
     /// \param compressed_str string concatenated by compressed buffer
     /// \param compressed_str_arr 2d pointer storing compressed strings
-    void CMPS_compressBuffer(  char *buffer, char *compressed_str, char **compressed_str_arr  );
+    // void CMPS_compressBuffer(  char *buffer, char *compressed_str, char **compressed_str_arr  );
 
     /// compresses string 
     /// \param source string which has to be compressed

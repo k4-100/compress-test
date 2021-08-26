@@ -21,8 +21,11 @@ int main( int argc, char *argv[] )
     // CMPS_GEN_generate_test_file( MIL );
 
 
-    const char *buffer = CMPS_read_from_file( default_path );
+    char *buffer = CMPS_read_from_file( default_path );
     char **b = CMPS_compress( buffer );
+
+    CMPS_write_to_file_from_2d_pointer( compressed_path, b, MIL);
+
 
     free( buffer );
     free( b );
