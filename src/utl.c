@@ -122,38 +122,63 @@
 
     char **CMPS_compress( const char *source )
     {   
+        // 2d char pointer storing lines of text (1d char pointers )
+        char **str_arr = (char**) malloc( 1000000 * sizeof( char* ) );
+        // stores temporary data
+        char buf[10];
+        // concatenate first source character to buf
+        strcat(buf, (char[2]){source[0],'\0'} );
 
-        printf("%ld\n", strlen(source) );
 
-        // char pointer containing pointers to char pointer string which have been compressed
-        char **compressed_str_arr = (char**) malloc( ( MIL + 1 ) * sizeof( char* ) ); 
-        char compressed_str[200];
-        char buffer[10];
-        
-        strcat(buffer,  (char[2]) {  source[0], '\0' } );
 
-        for( u_int32_t i=1; i< strlen( source ); i++ )
+        // loop iterating from second to last character of source argument
+        for( u_int32_t i=1; i< strlen( source ); i++  )
         {
-            if( buffer[ strlen( buffer ) - 1 ] == source[ i ]   )
-                // buffer += source[ i ];
-                strcat(buffer, (char[2]){ source[i], '\0' } );
-            else
-            {   
-                CMPS_compressBuffer( buffer, compressed_str, compressed_str_arr );
-                // loop is at the end of iteration
-                if ( i ==  strlen( source ) -1 )
-                    // compressed_str += std::string( 1,source [ i ]) + ";" ;
-                    strcat( compressed_str, (char[3]){ source[i], ';', '\0' }  );
-                else 
-                    // buffer = source[ i ];
-                    strcpy( buffer, (char[2]){source[i], '\0' } );
-            }
+            // if( buf[ strlen(buf) - 1 ]  == source[ i ] )
+            // {
+            //     printf( "%c\n", source[i] );
+            //     strcat( buf, (char[2]){source[i],'\0'} );
+            // }
         }
 
-        CMPS_compressBuffer( buffer, compressed_str, compressed_str_arr );
-
-        return compressed_str_arr;
+        return str_arr;
     }
+
+
+    // char **CMPS_compress( const char *source )
+    // {   
+
+    //     printf("%ld\n", strlen(source) );
+
+    //     // char pointer containing pointers to char pointer string which have been compressed
+    //     char **compressed_str_arr = (char**) malloc( ( MIL + 1 ) * sizeof( char* ) ); 
+    //     char compressed_str[200];
+    //     char buffer[10];
+        
+    //     strcat(buffer,  (char[2]) {  source[0], '\0' } );
+
+    //     for( u_int32_t i=1; i< strlen( source ); i++ )
+    //     {
+    //         if( buffer[ strlen( buffer ) - 1 ] == source[ i ]   )
+    //             // buffer += source[ i ];
+    //             strcat(buffer, (char[2]){ source[i], '\0' } );
+    //         else
+    //         {   
+    //             CMPS_compressBuffer( buffer, compressed_str, compressed_str_arr );
+    //             // loop is at the end of iteration
+    //             if ( i ==  strlen( source ) -1 )
+    //                 // compressed_str += std::string( 1,source [ i ]) + ";" ;
+    //                 strcat( compressed_str, (char[3]){ source[i], ';', '\0' }  );
+    //             else 
+    //                 // buffer = source[ i ];
+    //                 strcpy( buffer, (char[2]){source[i], '\0' } );
+    //         }
+    //     }
+
+    //     CMPS_compressBuffer( buffer, compressed_str, compressed_str_arr );
+
+    //     return compressed_str_arr;
+    // }
 
 
  // std::string CMPS_compress( const std::string source )
