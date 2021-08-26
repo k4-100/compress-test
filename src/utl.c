@@ -129,6 +129,7 @@
 
     char **CMPS_compress( const char *source )
     {   
+        printf("source[0]: %c\n", source[0] );
         // 2d char pointer storing lines of text (1d char pointers )
         char **str_arr = (char**) malloc( MIL * sizeof( char* ) );
 
@@ -138,28 +139,32 @@
 
 
         // stores temporary data
-        char buf[100];
+        char buf[200] = {source[0], '\0'};
+        // buf[0] = source[0];
+        // buf[1] = '\0';
         // concatenate first source character to buf
-        strcat(buf, (char[2]){source[0],'\0'} );
+        // strcat(buf, (char[2]){source[0],'\0'} );
         
+        printf("buf: %s\n", buf );
+
         // length of source char pointer
         const size_t srclen = strlen( source );
 
         // loop iterating from second to last non-null character of source argument
-        for( size_t i=1; i< srclen ; i++  )
+        for( size_t i=1; i< srclen + 1; i++  )
         {   
             // checks if current source's character is the same as buf's last non-null character
             if( source[ i ] == buf[ strlen(buf) - 1  ] )
                 strcat( buf, (char[2]){source[i],'\0'} );
             else 
             {   
-                CMPS_compressBuffer( buf, str_arr);
+                CMPS_compressBuffer( buf, str_arr );
                 // replace buf content with current source char
                 strcpy( buf, (char[2]){source[i],'\0'} );
             }
 
         }
-        
+        CMPS_compressBuffer( buf, str_arr );
         printf( "%s\n", buf );
         printf( "%ld\n", strlen( buf ) );
 
