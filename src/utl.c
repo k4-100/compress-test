@@ -124,22 +124,31 @@
     {   
         // 2d char pointer storing lines of text (1d char pointers )
         char **str_arr = (char**) malloc( 1000000 * sizeof( char* ) );
+        
         // stores temporary data
-        char buf[10];
+        char buf[100];
         // concatenate first source character to buf
         strcat(buf, (char[2]){source[0],'\0'} );
+        
+        // length of source char pointer
+        const size_t srclen = strlen( source );
 
+        // loop iterating from second to last non-null character of source argument
+        for( size_t i=1; i< srclen ; i++  )
+        {   
+            // checks if current source's character is the same as buf's last non-null character
+            if( source[ i ] == buf[ strlen(buf) - 1  ] )
+                strcat( buf, (char[2]){source[i],'\0'} );
+            else 
+            {   
+                // replace buf content with current source char
+                strcpy( buf, (char[2]){source[i],'\0'} );
+            }
 
-
-        // loop iterating from second to last character of source argument
-        for( u_int32_t i=1; i< strlen( source ); i++  )
-        {
-            // if( buf[ strlen(buf) - 1 ]  == source[ i ] )
-            // {
-            //     printf( "%c\n", source[i] );
-            //     strcat( buf, (char[2]){source[i],'\0'} );
-            // }
         }
+        
+        printf( "%s\n", buf );
+        printf( "%ld\n", strlen( buf ) );
 
         return str_arr;
     }
