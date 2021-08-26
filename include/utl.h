@@ -32,10 +32,9 @@
     void CMPS_write_to_file_from_2d_pointer( const char *path, char **bufferArr, const size_t ba_size );
 
     /// compresses current buffer
-    /// \param buffer buffer to be compress
-    /// \param compressed_str string concatenated by compressed buffer
-    /// \param compressed_str_arr 2d pointer storing compressed strings
-    // void CMPS_compressBuffer(  char *buffer, char *compressed_str, char **compressed_str_arr  );
+    /// \param buf buffer to be compress
+    /// \param str_arr 2d pointer storing compressed strings
+    void CMPS_compressBuffer( char *buf, char **str_arr );
 
     /// compresses string 
     /// \param source string which has to be compressed
