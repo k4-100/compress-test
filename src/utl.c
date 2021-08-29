@@ -164,6 +164,71 @@
     }
 
 
+
+    void CMPS_decompressBuffer( char *buf, char **str_arr )
+    {     
+        static size_t index = 0;
+        // const int buflen = strlen( buf );
+        // // added at the end
+        // char ending[200];
+        // if( buflen > 4 )
+        // {
+            
+        //     sprintf( ending, "%cx%d%c", buf[0], buflen, ';' );
+        //     strcat( str_arr[ index ], ending );
+        // }
+        // else 
+        // {
+        //     sprintf(ending, "%s%c", buf, ';' );
+        //     strcat( str_arr[ index ], ending );
+        // }
+
+        // when there is a new line character, increment index variable to load data into the next 
+        // str_arr index
+        if( buf[0] == '\n' )
+            index++;
+    }
+
+    char **CMPS_decompress( const char *source )
+    {   
+        // 2d char pointer storing lines of text (1d char pointers )
+        char **str_arr = (char**) malloc( MIL * sizeof( char* ) );
+
+        // allocate space for every single char pointer
+        for( size_t i=0; i< MIL; i++)
+            str_arr[i] = malloc( 200 * sizeof(char*) );
+
+        // stores temporary data
+        char buf[200] = {source[0], '\0'};
+
+        // length of source char pointer
+        const size_t srclen = strlen( source );
+
+        // loop iterating from second to last non-null character of source argument
+        for( size_t i=1; i< srclen + 1; i++  )
+        {   
+            // checks if current source's character is the same as buf's last non-null character
+            if( source[ i ] == buf[ strlen(buf) - 1  ] )
+                strcat( buf, (char[2]){source[i],'\0'} );
+            else 
+            {   
+                // decompresses buf
+                CMPS_compressBuffer( buf, str_arr );
+                // replace buf content with current source char
+                strcpy( buf, (char[2]){source[i],'\0'} );
+            }
+
+        }
+        // decompresses the final buf
+        CMPS_compressBuffer( buf, str_arr );
+
+        // return str_arr
+        return str_arr;
+    }
+
+
+
+
     // char **CMPS_compress( const char *source )
     // {   
 
