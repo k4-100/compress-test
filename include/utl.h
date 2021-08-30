@@ -41,9 +41,12 @@
     /// \return compressed 2d char pointer containing compressed lines of text
     char **CMPS_compress( const char *source );
     
-    // /// decompresses string
-    // /// \param source string which has to be decompressed
-    // /// \return decompressed file in a form 2d char pointer
+
+    void CMPS_decompressBuffer( char *buf, char **str_arr );
+    
+    /// decompresses string
+    /// \param source string which has to be decompressed
+    /// \return decompressed file in a form 2d char pointer
      char **CMPS_decompress( const char *source );
     // std::string CMPS_decompress( const std::string source );
 

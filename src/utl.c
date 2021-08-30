@@ -165,23 +165,57 @@
 
 
 
+    /// decompresses current buffer
+    //     /// \param buffer buffer to be decompressed
+    //     /// \param compressed_str string concatenated by decompressed buffer
+    //     auto decompressBuffer = []( std::string buffer, std::string decompressed_str )
+    //     {   
+    //         uint32_t multiplicator = 0;
+    //         std::string sign = "";
+    //         std::size_t crossPos = buffer.find( 'x' );
+
+    //         if( crossPos != std::string::npos )
+    //         {
+    //             multiplicator = std::stoi(  buffer.substr(0, crossPos )  );
+    //             sign = buffer.substr( crossPos+1, 1 );
+
+    //             for(uint32_t i=0; i<multiplicator; i++)
+    //                 decompressed_str += sign;
+    //         }
+    //         else    
+    //             decompressed_str += buffer;
+    //         buffer = "";
+
+    //     };
+
+
     void CMPS_decompressBuffer( char *buf, char **str_arr )
-    {     
+    {    
+        // 
         static size_t index = 0;
-        // const int buflen = strlen( buf );
-        // // added at the end
-        // char ending[200];
-        // if( buflen > 4 )
-        // {
-            
-        //     sprintf( ending, "%cx%d%c", buf[0], buflen, ';' );
-        //     strcat( str_arr[ index ], ending );
-        // }
-        // else 
-        // {
-        //     sprintf(ending, "%s%c", buf, ';' );
-        //     strcat( str_arr[ index ], ending );
-        // }
+        // length of buf 
+        const size_t buflen = strlen( buf );
+        // added at the end
+        char ending[200];
+
+        // int signPos = (int) (strchr( buf, 'x') - buf) ;
+
+        printf( "%ld\n", buflen );
+
+       
+        if( buflen >= 4 )
+        {   
+            // const u_int32_t range =  
+            // for()
+            // puts("BIG ENOUGH");
+            // sprintf(ending, "" );
+            // sprintf( ending, "%cx%d%c", buf[0], buflen, ';' );
+            // strcat( str_arr[ index ], ending );
+        }
+        else 
+        {
+            strcat( str_arr[ index ], ending );
+        }
 
         // when there is a new line character, increment index variable to load data into the next 
         // str_arr index
@@ -213,14 +247,14 @@
             else 
             {   
                 // decompresses buf
-                CMPS_compressBuffer( buf, str_arr );
+                CMPS_decompressBuffer( buf, str_arr );
                 // replace buf content with current source char
                 strcpy( buf, (char[2]){source[i],'\0'} );
             }
 
         }
         // decompresses the final buf
-        CMPS_compressBuffer( buf, str_arr );
+        CMPS_decompressBuffer( buf, str_arr );
 
         // return str_arr
         return str_arr;
