@@ -22,13 +22,15 @@ int main( int argc, char *argv[] )
 
     
 
-    // char *buffer;
-    // char **b;
+    // char *buffer = "Ax12;";
+    // char **b = malloc( 1000 );
+    // *b[0] = malloc(1000);
 
-    // CMPS_decompressBuffer( buffer, b  );
+
+    // CMPS_decompressBuffer( buffer, b );
 
     char *buffer = CMPS_read_from_file( compressed_path );
-    char **b = CMPS_compress( buffer );
+    char **b = CMPS_decompress( buffer );
 
     CMPS_write_to_file_from_2d_pointer( decompressed_path, b, MIL);
 
