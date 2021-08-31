@@ -31,7 +31,7 @@
         // appends data to the same file 
         writer = fopen( path, "a" );
         for( size_t i=0; i< ba_size; i++ )
-            fwrite( bufferArr[i], sizeof(char), strlen( bufferArr[i] +1 ), writer );
+            fwrite( bufferArr[i], sizeof(char), strlen( bufferArr[i] ) , writer );
         fclose( writer );
     }
 
@@ -169,24 +169,43 @@
     {   
         // current index of str_arr 2d pointer
         static size_t index = 0;
-
+        // stores result of decompressing current buf
+        char ending[200] = "";
         
         // position of semicolon in buf
-        int semicolon_pos = (int)strchr(buf, ';') - (int)buf ;
+        int semicolon_pos = (int) ( strchr(buf, ';') - buf );
         // substring beginning with 'x'
         char *x_char_substr = strchr(buf, 'x');
 
-        if( x_char_substr == NULL)
+        // if x_char_substr doesn't store NULL:
+        if( x_char_substr != NULL )
         {
 
         }
         else
         {
+            // for(size_t i=0; i<semicolon_pos; i++)
+            //     ending[i] = buf[i];
             
+            // ending[semicolon_pos] = '\0';
+
+
+            // strcat()
+            // concatenate whole buf, except for ';' at the end
+            strncat( ending, buf, semicolon_pos );
+            // puts( ending );
         }
 
 
-        printf( "semicolon_pos: %d\n", semicolon_pos );
+
+        // printf( "semicolon_pos: %d\n", semicolon_pos );
+
+        // concatenate ending to str_arr at current index
+        strcat( str_arr[ index ], ending );
+
+        printf( "ending: %s\n", ending );
+        printf( "str_arr[ index ]: %s\n", str_arr[ index ] );
+
 
         if( buf[0] == '\n' )
             index++;
@@ -208,7 +227,7 @@
         const size_t srclen = strlen( source );
 
         // iterate through each charcter in source
-        for( size_t i=0; i < srclen; i++)
+        for( size_t i=0; i < srclen + 1; i++)
         {   
             // concatenate char to buf
             strcat( buf, (char[2]){source[i], '\0'} );
@@ -218,7 +237,9 @@
                 strcpy( buf, (char[1]){'\0'} );
             }
         }
-    
+
+        // CMPS_decompressBuffer( buf, str_arr );
+
 
         // return str_arr
         return str_arr;
