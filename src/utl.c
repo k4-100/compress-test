@@ -181,22 +181,26 @@
 
         // if x_char_substr doesn't store NULL:
         if( x_char_substr != NULL )
-        {
+        {   
+            // position of 'x' char
+            int x_char_pos = (int) ( x_char_substr - buf );
+        
+            // string representing amount of characters to duplicate
+            char amountStr[10] = "";
+            // collects whole number string between 'x' and ';' char
+            for( int i = x_char_pos + 1; i < semicolon_pos; i++ )   
+                strcat( amountStr, (char[2]){buf[i],'\0'} );
+            
+            // converts amountStr to integer
+            int amount = atoi( amountStr );
 
+            // duplicates buf[0] given number of times
+            for( int i = 0; i < amount; i++)
+                strcat(ending, (char[2]){buf[0],'\0'} );
         }
         else
-        {
-            // for(size_t i=0; i<semicolon_pos; i++)
-            //     ending[i] = buf[i];
-            
-            // ending[semicolon_pos] = '\0';
-
-
-            // strcat()
             // concatenate whole buf, except for ';' at the end
             strncat( ending, buf, semicolon_pos );
-            // puts( ending );
-        }
 
 
 
@@ -205,8 +209,8 @@
         // concatenate ending to str_arr at current index
         strcat( str_arr[ index ], ending );
 
-        printf( "ending: %s\n", ending );
-        printf( "str_arr[ index ]: %s\n", str_arr[ index ] );
+        // printf( "ending: %s\n", ending );
+        // printf( "str_arr[ index ]: %s\n", str_arr[ index ] );
 
 
         if( buf[0] == '\n' )
