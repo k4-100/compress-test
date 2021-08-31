@@ -33,8 +33,6 @@
         for( size_t i=0; i< ba_size; i++ )
             fwrite( bufferArr[i], sizeof(char), strlen( bufferArr[i] ) , writer );
         fclose( writer );
-
-        puts( bufferArr[MIL - 2] );
     }
 
 
@@ -99,7 +97,9 @@
             // increment index
             bufferArr_index++;
         }
-        printf( "%ld\n", bufferArr_index );
+        // printf( "%ld\n", bufferArr_index );
+
+
         CMPS_write_to_file_from_2d_pointer( "./release/generated.txt", bufferArr, bufferArr_index );
     }
 

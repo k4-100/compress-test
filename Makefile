@@ -34,7 +34,7 @@ all : run
 
 
 run: $(TARGET)
-	$(TARGET) 
+	$(TARGET) -d
 $(TARGET) : $(OBJ)
 	gcc $^ -o $(TARGET) $(CFLAGS)
 
