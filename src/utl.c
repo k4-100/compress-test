@@ -166,25 +166,28 @@
 
 
     void CMPS_decompressBuffer( char *buf, char **str_arr )
-    {     
+    {   
+        // current index of str_arr 2d pointer
         static size_t index = 0;
-        // const int buflen = strlen( buf );
-        // // added at the end
-        // char ending[200];
-        // if( buflen > 4 )
-        // {
-            
-        //     sprintf( ending, "%cx%d%c", buf[0], buflen, ';' );
-        //     strcat( str_arr[ index ], ending );
-        // }
-        // else 
-        // {
-        //     sprintf(ending, "%s%c", buf, ';' );
-        //     strcat( str_arr[ index ], ending );
-        // }
 
-        // when there is a new line character, increment index variable to load data into the next 
-        // str_arr index
+        
+        // position of semicolon in buf
+        int semicolon_pos = (int)strchr(buf, ';') - (int)buf ;
+        // substring beginning with 'x'
+        char *x_char_substr = strchr(buf, 'x');
+
+        if( x_char_substr == NULL)
+        {
+
+        }
+        else
+        {
+            
+        }
+
+
+        printf( "semicolon_pos: %d\n", semicolon_pos );
+
         if( buf[0] == '\n' )
             index++;
     }
@@ -208,9 +211,10 @@
         for( size_t i=0; i < srclen; i++)
         {   
             // concatenate char to buf
-            strcat( buf, (char[2]){source[0], '\0'} );
+            strcat( buf, (char[2]){source[i], '\0'} );
             if( source[i] == ';' )
-            {
+            {   
+                CMPS_decompressBuffer( buf, str_arr );
                 strcpy( buf, (char[1]){'\0'} );
             }
         }
