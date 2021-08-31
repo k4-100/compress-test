@@ -33,6 +33,8 @@
         for( size_t i=0; i< ba_size; i++ )
             fwrite( bufferArr[i], sizeof(char), strlen( bufferArr[i] ) , writer );
         fclose( writer );
+
+        puts( bufferArr[MIL - 2] );
     }
 
 
@@ -86,7 +88,7 @@
             // adds new line at the of buffer if this isn't the last line with text (
             // prevents creation of additional empty line at the end)
             if(x+1 < size)
-                strcat(buffer, (char*) "\n\n" ); 
+                strcat(buffer, (char*) "\n" ); 
           
             // allocate memory for pointer at given index
             // copy buffer to said pointer
@@ -157,7 +159,7 @@
 
         }
         // compresses the final buf
-        CMPS_compressBuffer( buf, str_arr );
+        // CMPS_compressBuffer( buf, str_arr );
 
         // return str_arr
         return str_arr;
