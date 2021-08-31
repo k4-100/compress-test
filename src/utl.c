@@ -165,89 +165,28 @@
 
 
 
-    /// decompresses current buffer
-    //     /// \param buffer buffer to be decompressed
-    //     /// \param compressed_str string concatenated by decompressed buffer
-    //     auto decompressBuffer = []( std::string buffer, std::string decompressed_str )
-    //     {   
-    //         uint32_t multiplicator = 0;
-    //         std::string sign = "";
-    //         std::size_t crossPos = buffer.find( 'x' );
-
-    //         if( crossPos != std::string::npos )
-    //         {
-    //             multiplicator = std::stoi(  buffer.substr(0, crossPos )  );
-    //             sign = buffer.substr( crossPos+1, 1 );
-
-    //             for(uint32_t i=0; i<multiplicator; i++)
-    //                 decompressed_str += sign;
-    //         }
-    //         else    
-    //             decompressed_str += buffer;
-    //         buffer = "";
-
-    //     };
-
-
     void CMPS_decompressBuffer( char *buf, char **str_arr )
-    {    
-        // 
+    {     
         static size_t index = 0;
-        // length of buf 
-        // const size_t buflen = strlen( buf );
-
-        // added at the end
-        char ending[200];
-
-        // position of ';' char
-        const size_t semicolonCharPos = (int) (strchr( buf, ';') - buf );
-
-        // puts( buf);
-        if( strchr( buf, 'x') != NULL )
-        {       
-            // puts("NOT NULL");
-            // first char that is to be copied few times over
-            const char copiedChar = buf[0];
-            // position of 'x' char
-            const size_t xCharPos = (int) (strchr( buf, 'x') - buf) ;
+        // const int buflen = strlen( buf );
+        // // added at the end
+        // char ending[200];
+        // if( buflen > 4 )
+        // {
             
-            // amount of characters in a form of str
-            char *amountStr = (char*) malloc( 10 * sizeof(char) );
-            // amount of characters in a form of an int;
-            int amount = 0;
-            
-            // extracts amount of characters from buf char pointer
-            for( size_t i = xCharPos+1; i < semicolonCharPos; i++ )
-                strcat(amountStr, (char[2]){buf[i],'\0'} );
-            
-            amount = atoi( amountStr );
-
-            // copies char to a char array given amount of times
-            for( int i = 0; i < amount; i++ )
-                ending[i] = copiedChar;
-            
-            // adds null char at the end of char array
-            ending[amount] = '\0';
-            // puts(ending);
-            // concatenate char arr to str_arr 2d char pointer
-            strcat( str_arr[ index ], ending );
-            
-        }
-        else 
-        {   
-            
-            for( size_t i=0; i < strlen( buf ) - 1; i++)
-                ending[i] = buf[i];
-
-            strcat( str_arr[ index ], ending);
-        }
+        //     sprintf( ending, "%cx%d%c", buf[0], buflen, ';' );
+        //     strcat( str_arr[ index ], ending );
+        // }
+        // else 
+        // {
+        //     sprintf(ending, "%s%c", buf, ';' );
+        //     strcat( str_arr[ index ], ending );
+        // }
 
         // when there is a new line character, increment index variable to load data into the next 
         // str_arr index
         if( buf[0] == '\n' )
             index++;
-
-        // puts(buf);
     }
 
     char **CMPS_decompress( const char *source )
@@ -260,55 +199,22 @@
             str_arr[i] = malloc( 200 * sizeof(char*) );
 
         // stores temporary data
-        char buf[200] = {'\0'};
+        char buf[200] = "";
 
-        // length of source char pointer
+        // length of source
         const size_t srclen = strlen( source );
 
-        // loop iterating from second to last non-null character of source argument
-        for( size_t i=0; i< srclen + 1; i++  )
-        {
-            // printf("CMPS_decompress: %s\n", buf);
-            // checks if current source's character is ';'
-            
-            
-
-            if( source[ i ] != ';' )
-            {   
-                // if( source[ i ] != buf[0] )
-                // {
-                    strcat( buf, (char[2]){source[i],'\0'} );
-                // }
-            }
-            else
-            {   
-                strcat( buf, (char[2]){source[i],'\0'} );
-
-                // if first char of buf is semicolon:
-                if( buf[0] == ';' )
-                {
-                    
-                    char temp[200];
-                    // copies chars from buf to temp
-                    for( size_t i = 0; i < strlen( buf ); i++ )
-                        temp[i] = buf[i];
-                    
-                    for( size_t i = 1; i < strlen( buf ); i++ )
-                        buf[i] = temp[i];
-                        
-                }
-                
-                // decompresses buf
-                CMPS_decompressBuffer( buf, str_arr );
-                // replace buf content with null character
+        // iterate through each charcter in source
+        for( size_t i=0; i < srclen; i++)
+        {   
+            // concatenate char to buf
+            strcat( buf, (char[2]){source[0], '\0'} );
+            if( source[i] == ';' )
+            {
                 strcpy( buf, (char[1]){'\0'} );
             }
-
         }
-        // decompresses the final buf
-        // CMPS_decompressBuffer( buf, str_arr );
-
-        
+    
 
         // return str_arr
         return str_arr;
