@@ -1,1 +1,0 @@
-cat /dev/urandom | tr -cd 'a-f0-9' | head -c 100000 > bignumber.txt 
