@@ -1,3 +1,5 @@
+mod utl;
+
 fn main() {
-    println!("Hello, world!");
+    utl::write_array_to_file();
 }
