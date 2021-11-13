@@ -1,5 +1,8 @@
 mod utl;
 
 fn main() {
-    utl::write_array_to_file();
+    let mut input = String::new();
+    std::io::stdin().read_line( &mut input ).unwrap();
+
+    println!( "{}",input );
 }
