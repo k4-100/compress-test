@@ -4,5 +4,6 @@
 mod utl;
 
 fn main() {
-    utl::generate_file( 100 );
+    println!("{}", utl::generate_file( 100 ) );
+    // utl::generate_file( 100 )
 }
