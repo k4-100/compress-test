@@ -6,38 +6,35 @@ use std::io::Write;
 
 pub fn generate_file( lines : u32 ) -> Vec<String> {
     let mut  v : Vec<String> = vec![]; 
-
-
     let mut buf : String = String::with_capacity(200);
 
-    for _x in 0..lines{
+    for x in 0..lines{
         for _y in 0..18
         {
-            let current_len : u8 = rand::thread_rng().gen_range(1..(10+1)) as u8;
-            let current_char : char = rand::thread_rng().gen_range(65..(77+1)) as u8 as char;
-            for _z in 0..current_len
+            for _z in 0..rand::thread_rng().gen_range(1..(10+1)) as u8
             {
-                buf.push( current_char );
+                buf.push(rand::thread_rng().gen_range(65..(77+1)) as u8 as char );
             }
         }
-        buf.push('\n');
+        if x < lines-1{
+            buf.push('\n');
+        }
+        
         v.push( buf.clone() );
         buf.clear();
     }
-
-    
 
     return v;
 }
 
 
-pub fn write_into_file( string_vec :  Vec<String> ){
+pub fn write_into_file( string_vec : Vec<String> ){
     // clears out file 
+    // creates it if doesn't exist
     fs::write("res/test.txt","").expect("clean-up failed");
     
     // opens file with appending 
     let mut file = OpenOptions::new()
-        .create(true)
         .append(true)
         .open("res/test.txt")
         .expect("Stuff to break");
