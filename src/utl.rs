@@ -1,4 +1,8 @@
 use rand::Rng;
+use std::fs;
+use std::fs::OpenOptions;
+use std::io::Write;
+
 
 pub fn generate_file( lines : u32 ) -> Vec<String> {
     let mut  v : Vec<String> = vec![]; 
@@ -27,3 +31,20 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 }
 
 
+pub fn write_into_file( string_vec :  Vec<String> ){
+    // clears out file 
+    fs::write("res/test.txt","").expect("clean-up failed");
+    
+    // opens file with appending 
+    let mut file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open("res/test.txt")
+        .expect("Stuff to break");
+
+    for x in 0..string_vec.len(){
+        // append data to a file
+        &file.write_all( string_vec[x].as_bytes());
+    }
+
+}
