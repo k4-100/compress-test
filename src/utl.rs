@@ -47,9 +47,9 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
     return v;
 }
 
- pub fn read_from_file_to_vector() -> Vec<String>{
+pub fn read_from_file_to_vector() -> Vec<String>{
     let  text : String = fs::read_to_string("./res/test.txt").unwrap();
     let content : Vec<String> = text.split("\n").map( |x| String::from(x) ).collect();
 
     return content;
- }
+}
