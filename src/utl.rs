@@ -58,24 +58,32 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 
 pub fn compress_file( lines_vec : Vec<String> ){
     let mut compressed_vec : Vec<String> = vec![];
-    let compressed_vec_index : u32 = 0;
+    let mut compressed_vec_index : u32 = 0;
+ 
 
-//     if( buffer.size() > 4)
-//     compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
-// else
-//     compressedStr += buffer + ';';
-
-// , &buf.chars().nth(0).unwrap()
     let compress_buffer = |buf : String| {
         let buflen : u8 = buf.len() as u8;
         if buflen > 4 {
             // let string_number : &str = &buflen.to_string()[..];
             compressed_vec[compressed_vec_index as usize]
-                .push_str( &format!("{}x{};", &buflen.to_string(), &buf.chars().nth(0).unwrap() ) );
+                .push_str( &format!("{}x{};", &buflen.to_string(), &buf.chars().nth(0).expect("in push_str: can't read 0-th sign") ) );
         }
         else {
             compressed_vec[compressed_vec_index as usize]
                 .push_str( &buf );
         }
+
+        if buf.chars().nth( 0 ).expect("in conditional: can't read 0-th sign") == '\n' {
+            compressed_vec_index += 1;
+        }
+        
     };
+
+
+    for x in 0..lines_vec.len(){
+        for _y in 0..lines_vec[x].len(){
+            println!("{}",_y);
+        }
+    }
+    
 }
