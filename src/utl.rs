@@ -37,10 +37,11 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 
     for x in 0..lines{
         for _y in 0..18
-        {
-            for _z in 0..rand::thread_rng().gen_range(1..(10+1)) as u8
-            {
-                buf.push(rand::thread_rng().gen_range(65..(77+1)) as u8 as char );
+        {   
+            let chr : char = rand::thread_rng().gen_range(65..(77+1)) as u8 as char;
+            for _z in 0..rand::thread_rng().gen_range(1..(10+1))
+            {   
+                buf.push( chr );
             }
         }
         if x < lines-1{
