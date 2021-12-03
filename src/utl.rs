@@ -5,6 +5,13 @@ use std::io::Write;
 
 
 
+pub fn read_from_file_to_vector() -> Vec<String>{
+    let  text : String = fs::read_to_string("./res/test.txt").unwrap();
+    let content : Vec<String> = text.split("\n").map( |x| String::from(x) ).collect();
+
+    return content;
+}
+
 
 pub fn write_into_file( string_vec : Vec<String> ){
     // clears out file 
@@ -47,9 +54,28 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
     return v;
 }
 
-pub fn read_from_file_to_vector() -> Vec<String>{
-    let  text : String = fs::read_to_string("./res/test.txt").unwrap();
-    let content : Vec<String> = text.split("\n").map( |x| String::from(x) ).collect();
 
-    return content;
+
+pub fn compress_file( lines_vec : Vec<String> ){
+    let mut compressed_vec : Vec<String> = vec![];
+    let compressed_vec_index : u32 = 0;
+
+//     if( buffer.size() > 4)
+//     compressedStr += std::to_string( buffer.length() ) + 'x' + buffer[0] + ';';
+// else
+//     compressedStr += buffer + ';';
+
+// , &buf.chars().nth(0).unwrap()
+    let compress_buffer = |buf : String| {
+        let buflen : u8 = buf.len() as u8;
+        if buflen > 4 {
+            // let string_number : &str = &buflen.to_string()[..];
+            compressed_vec[compressed_vec_index as usize]
+                .push_str( &format!("{}x{};", &buflen.to_string(), &buf.chars().nth(0).unwrap() ) );
+        }
+        else {
+            compressed_vec[compressed_vec_index as usize]
+                .push_str( &buf );
+        }
+    };
 }
