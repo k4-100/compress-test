@@ -5,23 +5,23 @@ use std::io::Write;
 
 
 
-pub fn read_from_file_to_vector() -> Vec<String>{
-    let  text : String = fs::read_to_string("./res/test.txt").unwrap();
+pub fn read_from_file_to_vector( path : &str ) -> Vec<String>{
+    let  text : String = fs::read_to_string(path).unwrap();
     let content : Vec<String> = text.split("\n").map( |x| String::from(x) ).collect();
 
     return content;
 }
 
 
-pub fn write_into_file( string_vec : Vec<String> ){
+pub fn write_into_file( path : &str, string_vec : Vec<String> ){
     // clears out file 
     // creates it if doesn't exist
-    fs::write("res/test.txt","").expect("clean-up failed");
+    fs::write(path,"").expect("clean-up failed");
     
     // opens file with appending 
     let mut file = OpenOptions::new()
         .append(true)
-        .open("res/test.txt")
+        .open(path)
         .expect("Stuff to break");
 
     for x in 0..string_vec.len(){
@@ -57,10 +57,14 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 
 
 
-pub fn compress_file( lines_vec : Vec<String> ){
+pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let mut compressed_vec : Vec<String> = vec![];
-    let mut compressed_vec_index : usize = 0;
+    
+    for sign in lines_vec[0].chars() {
+        compressed_vec.push( String::new() );
+        compressed_vec[0].push( sign );
+    }
     
    
-    
+    compressed_vec
 }
