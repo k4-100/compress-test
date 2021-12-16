@@ -9,7 +9,7 @@ fn main() {
     
     let big_string : Vec<String> = utl::read_from_file_to_vector( "res/test.txt" );
 
-    let compressed : Vec<String> = utl::compress_file( big_string );
+    let compressed  = utl::compress_file( big_string );
     // "res/test.txt"
 
 

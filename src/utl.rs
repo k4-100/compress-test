@@ -31,6 +31,7 @@ pub fn write_into_file( path : &str, string_vec : Vec<String> ){
 
 }
 
+#[allow(dead_code)]
 pub fn generate_file( lines : u32 ) -> Vec<String> {
     let mut  v : Vec<String> = vec![]; 
     let mut buf : String = String::with_capacity(200);
@@ -56,15 +57,29 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 }
 
 
-
+#[allow(unused_mut)]
 pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let mut compressed_vec : Vec<String> = vec![];
-    
-    for sign in lines_vec[0].chars() {
-        compressed_vec.push( String::new() );
-        compressed_vec[0].push( sign );
+    let mut buffer_string: String;
+
+
+    buffer_string= String::from( 
+        lines_vec[0].chars().nth(0).unwrap() 
+    );
+    for y in 1..lines_vec[0].chars().count() {
+        let current_char : char = lines_vec[0].chars().nth(y).unwrap();
+
+        // if first char of buffer string and current_char are matching 
+        if  buffer_string.chars().nth(0).unwrap() == current_char  {
+            buffer_string.push( lines_vec[0].chars().nth(y).unwrap() );
+        }
+        else {
+            
+        }
+        
+
+        
     }
-    
-   
-    compressed_vec
+
+    return compressed_vec;
 }
