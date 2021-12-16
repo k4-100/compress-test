@@ -71,9 +71,13 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
 
     let mut compress_buffer = | buffer_string_clone: &String, index : usize| {
         if buffer_string_clone.len() > 4  {
-            
+            let first_char: char = buffer_string_clone.chars().nth(0).unwrap();
+            let bsc_len: usize = buffer_string_clone.len();
+            compressed_vec[0].push_str(
+                 format!("{}x{};", first_char,bsc_len).as_str()
+            );
         } else {
-            compressed_vec[0].push_str( buffer_string_clone.clone().as_str() );
+            compressed_vec[0].push_str( format!("{};",buffer_string_clone.as_str() ).as_str() );
         }
     }
     ;
@@ -92,9 +96,10 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
             buffer_string.push( lines_vec[0].chars().nth(y).unwrap() );
             
         }
-        
+    }
 
-        
+    if !buffer_string.is_empty(){
+        compress_buffer(  &buffer_string.clone(), 1 );
     }
 
     return compressed_vec;
