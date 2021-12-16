@@ -59,31 +59,38 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 
 #[allow(unused_mut)]
 pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
-    let mut compressed_vec : Vec<String> = vec![];
-    let mut buffer_string: String = String::new();
+    let mut compressed_vec : Vec<String> = vec![ ];
+    compressed_vec.resize(100, String::new() );
 
-    let mut compress_buffer = | index : usize| {
-        if (&buffer_string).clone().len() > 4  {
-           
+
+    let mut  buffer_string = String::from( 
+        lines_vec[0].chars().nth(0).unwrap() 
+    );
+    
+    
+
+    let mut compress_buffer = | buffer_string_clone: &String, index : usize| {
+        if buffer_string_clone.len() > 4  {
+            
         } else {
-            &compressed_vec[index].push_str( buffer_string.as_str() );
+            compressed_vec[0].push_str( buffer_string_clone.clone().as_str() );
         }
     }
     ;
 
 
-    buffer_string = String::from( 
-        lines_vec[0].chars().nth(0).unwrap() 
-    );
     for y in 1..lines_vec[0].chars().count() {
         let current_char : char = lines_vec[0].chars().nth(y).unwrap();
 
-        // if first char of buffer string and current_char are matching 
-        if (&buffer_string).chars().nth(0).unwrap() != current_char {
-            compress_buffer( y );
+        let bsc = buffer_string.clone();
+       
+        if bsc.chars().nth(0).unwrap() != current_char {
+            compress_buffer( &bsc, y );
+            buffer_string = String::from(format!("{}", current_char ));
         }
         else {
             buffer_string.push( lines_vec[0].chars().nth(y).unwrap() );
+            
         }
         
 
