@@ -1,5 +1,4 @@
 use rand::Rng;
-use std::env::current_exe;
 use std::fs;
 use std::fs::OpenOptions;
 use std::io::Write;
