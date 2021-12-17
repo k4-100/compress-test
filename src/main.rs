@@ -5,9 +5,11 @@
 mod utl;
 
 fn main() {
-    // let big_string : Vec<String> = utl::generate_file( 1 );
+    let mut big_string : Vec<String> = utl::generate_file( 100 );
     
-    let big_string : Vec<String> = utl::read_from_file_to_vector( "res/test.txt" );
+    utl::write_into_file("res/test.txt", big_string);
+
+    big_string  = utl::read_from_file_to_vector( "res/test.txt" );
 
     let compressed  = utl::compress_file( big_string );
     // "res/test.txt"
