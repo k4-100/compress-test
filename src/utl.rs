@@ -63,12 +63,6 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     // let mut compressed_vec : Vec<String> = vec![ sda.clone() ; 10 ];
     let mut compressed_vec : Vec<String> = vec![  ];
     compressed_vec.resize(lines_vec.len() , String::new() );
-    println!("{}", lines_vec.len());
-
-
-    
-    
-    
     let mut index: usize = 0;
     
     let mut compress_buffer = | buffer_string_ref: &String, index : usize| {
@@ -91,18 +85,22 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let mut  buffer_string = String::new();
     
     for x in 0..lines_vec.len(){
-        println!("{}",lines_vec.len());
         for y in 0..lines_vec[index].chars().count() {
             let current_char : char = lines_vec[index].chars().nth(y).unwrap();
+           
             // if buffer string isn't empty:
             if !buffer_string.is_empty(){
                 // if the first char of buffer string is the same as current_char
                 if  buffer_string.chars().nth(0).unwrap() != current_char {
                     compress_buffer( &buffer_string,index );
                     buffer_string = String::from(format!("{}", current_char ));
+                    if current_char == '\n'{
+                        index += 1;
+                    }
                 }
                 else {
                     buffer_string.push( lines_vec[index].chars().nth(y).unwrap() );
+                    
                 }
             } else {
                 buffer_string = String::from( format!("{}",current_char) );

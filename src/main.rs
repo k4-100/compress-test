@@ -5,9 +5,10 @@
 mod utl;
 
 fn main() {
-    let mut big_string : Vec<String> = utl::generate_file( 10 );
+    // let mut big_string : Vec<String> = utl::generate_file( 1000000 );
     
-    utl::write_into_file("res/test.txt", big_string);
+    let mut big_string : Vec<String>;
+    // utl::write_into_file("res/test.txt", big_string);
 
     big_string  = utl::read_from_file_to_vector( "res/test.txt" );
 
