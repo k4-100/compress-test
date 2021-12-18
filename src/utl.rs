@@ -61,6 +61,8 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let mut compressed_vec : Vec<String> = vec![ ];
     compressed_vec.resize(lines_vec.len() , String::new() );
+    // println!("{}", lines_vec.len());
+
 
     let mut  buffer_string = String::from( 
         lines_vec[0].chars().nth(0).unwrap() 
@@ -90,8 +92,8 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     
     
     
-    for x in 0..lines_vec[index].chars().count(){
-        
+    for x in 0..lines_vec.len(){
+        println!("{}",lines_vec.len());
         for y in 1..lines_vec[index].chars().count() {
             let current_char : char = lines_vec[index].chars().nth(y).unwrap();
     
@@ -103,9 +105,9 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
                 buffer_string.push( lines_vec[index].chars().nth(y).unwrap() );
             }
     
-            if current_char == '\n' && x < lines_vec[index].chars().count(){
-                index += 1;
-            }
+            // if current_char == '\n' && x < lines_vec[index].chars().count(){
+            //     index += 1;
+            // }
         }
     
         if !buffer_string.is_empty(){
