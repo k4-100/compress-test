@@ -7,7 +7,7 @@ mod utl;
 fn main() {
     let mut big_string : Vec<String> = utl::generate_file( 10 );
     
-    // utl::write_into_file("res/test.txt", big_string);
+    utl::write_into_file("res/test.txt", big_string);
 
     big_string  = utl::read_from_file_to_vector( "res/test.txt" );
 
