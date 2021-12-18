@@ -59,9 +59,11 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 
 #[allow(unused_mut)]
 pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
-    let mut compressed_vec : Vec<String> = vec![ ];
+    // let sda = String::new();
+    // let mut compressed_vec : Vec<String> = vec![ sda.clone() ; 10 ];
+    let mut compressed_vec : Vec<String> = vec![  ];
     compressed_vec.resize(lines_vec.len() , String::new() );
-    // println!("{}", lines_vec.len());
+    println!("{}", lines_vec.len());
 
 
     let mut  buffer_string = String::from( 
@@ -80,11 +82,9 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
                 format!("{}x{};", first_char,bsc_len).as_str()
             );
         } else {
-            if first_char != '\n'{
+            // if first_char != '\n'{
                 compressed_vec[index].push_str( format!("{};",buffer_string_ref.as_str() ).as_str() );
-            }else{
-                compressed_vec[index].push('\n');
-            }
+            // }
         }
         
     }
@@ -108,12 +108,20 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
             // if current_char == '\n' && x < lines_vec[index].chars().count(){
             //     index += 1;
             // }
+
         }
-    
-        if !buffer_string.is_empty(){
-            compress_buffer(  &buffer_string.clone(),index );
-        }
+        
+        
+
+        // if !buffer_string.is_empty(){
+        //     compress_buffer(  &buffer_string.clone(),index );
+        // }
     }
 
     return compressed_vec;
 }
+
+
+// if !buffer_string.is_empty() && buffer_string.chars().nth(0).unwrap() != '\n' {
+//     compress_buffer(  &buffer_string.clone(),index );
+// }
