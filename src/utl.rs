@@ -65,7 +65,7 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let mut index: usize = 0;
     
     let mut compress_buffer = | buffer_string_ref: &String, index : usize| {
-        let first_char: char = buffer_string_ref.chars().nth(0).unwrap();
+        let first_char: &str = &buffer_string_ref[0..1];
         let bsc_len: usize = buffer_string_ref.len();
         if bsc_len > 4  {
             compressed_vec[index].push_str(
@@ -86,22 +86,20 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     // let buffer_string_chars = buffer_string.chars();
     for x in 0..lines_vec_len{
         for y in 0..lines_vec[index].chars().count() {
-            let current_char = String::from(&lines_vec[index][y..y+1]);
+            let current_char = &lines_vec[index][y..y+1];
             
-            // if buffer string isn't empty:
-            // if !buffer_string.is_empty(){
-                // if the first char of buffer string is the same as current_char
-                if  &buffer_string[0..1] != current_char {
-                    compress_buffer( &buffer_string,index );
-                    buffer_string = String::from(format!("{}", current_char ));
-                    if current_char == "\n"{
-                        index += 1;
-                    }
+            // if the first char of buffer string is the same as current_char:
+            if  &buffer_string[0..1] != current_char {
+                compress_buffer( &buffer_string,index );
+                buffer_string = String::from(format!("{}", current_char ));
+                if current_char == "\n"{
+                    index += 1;
                 }
-                else {
-                    buffer_string.push( lines_vec[index].chars().nth(y).unwrap() );
-                    
-                }
+            }
+            else {
+                buffer_string.push_str( current_char );
+                
+            }
         }
         
         
