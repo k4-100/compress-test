@@ -13,7 +13,7 @@ fn main() {
     big_string  = utl::read_from_file_to_vector( "res/test.txt" );
 
     let compressed  = utl::compress_file( big_string );
-    // "res/test.txt"
+    // // "res/test.txt"
 
 
     utl::write_into_file( "res/test.cmps", compressed );
