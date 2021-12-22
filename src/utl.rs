@@ -98,7 +98,6 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
             }
             else {
                 buffer_string.push_str( current_char );
-                
             }
         }
         
@@ -108,4 +107,23 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     }
 
     return compressed_vec;
+}
+
+pub fn decompress_file( lines_vec : Vec<String> ) -> Vec<String> {
+    let lines_vec_len: usize  = lines_vec.len();
+    let mut decompressed_vec: Vec<String> = vec![ String::new() ; lines_vec_len];
+    println!("{:?}",decompressed_vec);
+
+
+    let mut buffer_string: String = String::from( &lines_vec[0][0..1] );
+    let index = 0;
+    for y in 0..lines_vec[index].chars().count()-1{
+        let current_char = &lines_vec[index][y..y+1];
+        buffer_string.push_str( &lines_vec[0][y..y+1] );
+    }
+    
+    decompressed_vec.push( buffer_string );
+
+
+    return decompressed_vec;
 }
