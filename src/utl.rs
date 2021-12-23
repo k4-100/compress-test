@@ -57,7 +57,7 @@ pub fn generate_file( lines : u32 ) -> Vec<String> {
 }
 
 
-#[allow(unused_mut)]
+#[allow(unused_mut,dead_code)]
 pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let lines_vec_len: usize  = lines_vec.len();
     let mut compressed_vec : Vec<String> = vec![ String::new() ; lines_vec_len  ];
@@ -80,12 +80,13 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     }
     ;
     
-    let mut  buffer_string = String::new();
-    buffer_string =  String::from( &lines_vec[0][0..1] );
+    // let mut  buffer_string = String::new();
+    let mut buffer_string =  String::from( &lines_vec[0][0..1] );
+    let mut adjust_to_beginning: usize = 1;
 
     // let buffer_string_chars = buffer_string.chars();
     for x in 0..lines_vec_len{
-        for y in 0..lines_vec[index].chars().count() {
+        for y in 0+adjust_to_beginning..lines_vec[index].chars().count() {
             let current_char = &lines_vec[index][y..y+1];
             
             // if the first char of buffer string is the same as current_char:
@@ -98,6 +99,10 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
             }
             else {
                 buffer_string.push_str( current_char );
+            }
+            // ensures first char in first line won't get read second time in a loop
+            if adjust_to_beginning != 0{
+                adjust_to_beginning = 0;
             }
         }
         
