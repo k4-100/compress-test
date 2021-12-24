@@ -62,53 +62,41 @@ pub fn compress_file( lines_vec : Vec<String> ) -> Vec<String>{
     let lines_vec_len: usize  = lines_vec.len();
     let mut compressed_vec : Vec<String> = vec![ String::new() ; lines_vec_len  ];
     
-    let mut index: usize = 0;
+
     
     let mut compress_buffer = | buffer_string_ref: &String, index : usize| {
-        let first_char: &str = &buffer_string_ref[0..1];
         let bsc_len: usize = buffer_string_ref.len();
         if bsc_len > 4  {
             compressed_vec[index].push_str(
-                format!("{}x{};", first_char,bsc_len).as_str()
+                format!("{}x{};", &buffer_string_ref[0..1],bsc_len).as_str()
             );
         } else {
-            // if first_char != '\n'{
-                compressed_vec[index].push_str( format!("{};",buffer_string_ref ).as_str() );
-            // }
+            compressed_vec[index].push_str( format!("{};",buffer_string_ref ).as_str() );
+            
         }
         
     }
     ;
-    
-    // let mut  buffer_string = String::new();
-    let mut buffer_string =  String::from( &lines_vec[0][0..1] );
-    let mut adjust_to_beginning: usize = 1;
 
-    // let buffer_string_chars = buffer_string.chars();
     for x in 0..lines_vec_len{
-        for y in 0+adjust_to_beginning..lines_vec[index].chars().count() {
-            let current_char = &lines_vec[index][y..y+1];
+        let mut buffer_string =  String::from( &lines_vec[x][0..1] );
+        for y in 1..lines_vec[x].chars().count() {
+            let current_char = &lines_vec[x][y..y+1];
             
             // if the first char of buffer string is the same as current_char:
             if  &buffer_string[0..1] != current_char {
-                compress_buffer( &buffer_string,index );
+                compress_buffer( &buffer_string,x );
                 buffer_string = String::from(format!("{}", current_char ));
-                if current_char == "\n"{
-                    index += 1;
+                if current_char == "\n" && x < lines_vec_len-1{
+                    compress_buffer( &buffer_string,x );
                 }
             }
             else {
                 buffer_string.push_str( current_char );
             }
-            // ensures first char in first line won't get read second time in a loop
-            if adjust_to_beginning != 0{
-                adjust_to_beginning = 0;
-            }
+
         }
         
-        
-
-      
     }
 
     return compressed_vec;
@@ -123,7 +111,7 @@ pub fn decompress_file( lines_vec : Vec<String> ) -> Vec<String> {
     let mut buffer_string: String = String::from( &lines_vec[0][0..1] );
     let index = 0;
     for y in 0..lines_vec[index].chars().count()-1{
-        let current_char = &lines_vec[index][y..y+1];
+        // let current_char = &lines_vec[index][y..y+1];
         buffer_string.push_str( &lines_vec[0][y..y+1] );
     }
     
