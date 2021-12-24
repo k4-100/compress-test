@@ -118,9 +118,8 @@ pub fn decompress_file( lines_vec : Vec<String> ) -> Vec<String> {
     // }
 
 
-    // let mut buffer_string : String = String::new();
     for x in 0..lines_vec_len{
-        let mut buffer_string =  String::from( &lines_vec[x][0..1] );
+        let mut buffer_string : String = String::new();
         lines_vec[x].split(";").collect::<Vec<&str>>().iter().for_each(
             |word| {
                 buffer_string.push_str( word );
