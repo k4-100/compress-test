@@ -104,20 +104,34 @@ pub fn decompress_file( lines_vec : Vec<String> ) -> Vec<String> {
     let mut decompressed_vec: Vec<String> = vec![ String::new() ; lines_vec_len];
 
 
+    // for x in 0..lines_vec_len{
+    //     let mut buffer_string =  String::from( &lines_vec[x][0..1] );
+    //     for y in 1..lines_vec[x].chars().count()-1{
+    //         // let current_char = &lines_vec[index][y..y+1];
+    //         buffer_string.push_str( &lines_vec[x][y..y+1] );
+    //     }
+        
+    //     if x < lines_vec_len-1{
+    //         buffer_string.push('\n');
+    //     }
+    //     decompressed_vec.push( buffer_string.clone() );
+    // }
+
+
+    // let mut buffer_string : String = String::new();
     for x in 0..lines_vec_len{
         let mut buffer_string =  String::from( &lines_vec[x][0..1] );
-        for y in 1..lines_vec[x].chars().count()-1{
-            // let current_char = &lines_vec[index][y..y+1];
-            buffer_string.push_str( &lines_vec[x][y..y+1] );
-        }
-        
-        if x < lines_vec_len-1{
-            buffer_string.push('\n');
-        }
-        decompressed_vec.push( buffer_string.clone() );
+        lines_vec[x].split(";").collect::<Vec<&str>>().iter().for_each(
+            |word| {
+                buffer_string.push_str( word );
+            }
+        );
+        decompressed_vec.push( buffer_string);
     }
- 
-
+    
+    
+    
+    
 
     return decompressed_vec;
 }
