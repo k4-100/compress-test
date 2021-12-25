@@ -117,13 +117,16 @@ pub fn decompress_file( lines_vec : Vec<String> ) -> Vec<String> {
                         ])
                         .parse::<u8>().unwrap()
                     );
-                    println!("{:?}",segment_parts);
                     for _ in 0..segment_parts.1{
                         buffer_string.push_str( segment_parts.0 );
                     }
                 }
                 else{
-                    buffer_string.push_str( &segment);
+                    if segment == &"\n" && x >= lines_vec_len - 1 { /*do nothing*/ }
+                    else {
+                        buffer_string.push_str( &segment);
+                    }
+                    
                 }
             }
         );
