@@ -6,13 +6,23 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     println!("args: {:?}", args);
     
-    
-
+    let mut big_string: Vec<String>;
 
     match args[1].as_str(){
-        "g" => println!("generating..."),
-        "c" => println!("compressing..."),
-        "d" => println!("decompressing..."),
+        "g" => {
+            big_string = utl::generate_file(1000);
+            utl::write_into_file("res/test.txt", big_string);
+        },
+        "c" => {
+            big_string = utl::read_from_file_to_vector("res/test.txt");
+            big_string = utl::compress_file( big_string );
+            utl::write_into_file("res/test.cmps", big_string);
+        },
+        "d" => {
+            big_string = utl::read_from_file_to_vector("res/test.cmps");
+            big_string = utl::decompress_file( big_string );
+            utl::write_into_file("res/test.dcmps", big_string);
+        },
         
         _ => println!("Broke")
     }
