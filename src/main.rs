@@ -10,7 +10,13 @@ fn main() {
 
     match args[1].as_str(){
         "g" => {
-            big_string = utl::generate_file(1000);
+            let mut lines: u32 = 1000;
+            
+            if args.len() > 2 {
+                lines = args[2].parse().expect("Failed parsing");
+            }
+            
+            big_string = utl::generate_file(lines);
             utl::write_into_file("res/test.txt", big_string);
         },
         "c" => {
